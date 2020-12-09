@@ -1,4 +1,7 @@
 programis
+
+	numeris a, b;
+	textis t1;
 	inputis(a);
 	inputis(b);
 	

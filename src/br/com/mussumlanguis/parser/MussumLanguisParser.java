@@ -17,23 +17,24 @@ public class MussumLanguisParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, AP=5, FP=6, SC=7, OP=8, ATTR=9, ID=10, 
-		NUMBER=11, WS=12;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, AP=7, FP=8, SC=9, OP=10, 
+		ATTR=11, VIR=12, ID=13, NUMBER=14, WS=15;
 	public static final int
-		RULE_prog = 0, RULE_bloco = 1, RULE_cmd = 2, RULE_cmdleitura = 3, RULE_cmdescrita = 4, 
-		RULE_cmdattrib = 5, RULE_expr = 6, RULE_termo = 7;
+		RULE_prog = 0, RULE_decl = 1, RULE_declaravar = 2, RULE_tipo = 3, RULE_bloco = 4, 
+		RULE_cmd = 5, RULE_cmdleitura = 6, RULE_cmdescrita = 7, RULE_cmdattrib = 8, 
+		RULE_expr = 9, RULE_termo = 10;
 	public static final String[] ruleNames = {
-		"prog", "bloco", "cmd", "cmdleitura", "cmdescrita", "cmdattrib", "expr", 
-		"termo"
+		"prog", "decl", "declaravar", "tipo", "bloco", "cmd", "cmdleitura", "cmdescrita", 
+		"cmdattrib", "expr", "termo"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'programis'", "'cacildis;'", "'inputis'", "'escrevis'", "'('", 
-		"')'", "';'", null, "'='"
+		null, "'programis'", "'cacildis;'", "'numeris'", "'textis'", "'inputis'", 
+		"'escrevis'", "'('", "')'", "';'", null, "'='", "','"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, "AP", "FP", "SC", "OP", "ATTR", "ID", "NUMBER", 
-		"WS"
+		null, null, null, null, null, null, null, "AP", "FP", "SC", "OP", "ATTR", 
+		"VIR", "ID", "NUMBER", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -85,6 +86,9 @@ public class MussumLanguisParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class ProgContext extends ParserRuleContext {
+		public DeclContext decl() {
+			return getRuleContext(DeclContext.class,0);
+		}
 		public BlocoContext bloco() {
 			return getRuleContext(BlocoContext.class,0);
 		}
@@ -108,12 +112,191 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(16);
+			setState(22);
 			match(T__0);
-			setState(17);
+			setState(23);
+			decl();
+			setState(24);
 			bloco();
-			setState(18);
+			setState(25);
 			match(T__1);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class DeclContext extends ParserRuleContext {
+		public List<DeclaravarContext> declaravar() {
+			return getRuleContexts(DeclaravarContext.class);
+		}
+		public DeclaravarContext declaravar(int i) {
+			return getRuleContext(DeclaravarContext.class,i);
+		}
+		public DeclContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_decl; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitDecl(this);
+		}
+	}
+
+	public final DeclContext decl() throws RecognitionException {
+		DeclContext _localctx = new DeclContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_decl);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(28); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				{
+				setState(27);
+				declaravar();
+				}
+				}
+				setState(30); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==T__2 || _la==T__3 );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class DeclaravarContext extends ParserRuleContext {
+		public TipoContext tipo() {
+			return getRuleContext(TipoContext.class,0);
+		}
+		public List<TerminalNode> ID() { return getTokens(MussumLanguisParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(MussumLanguisParser.ID, i);
+		}
+		public TerminalNode SC() { return getToken(MussumLanguisParser.SC, 0); }
+		public List<TerminalNode> VIR() { return getTokens(MussumLanguisParser.VIR); }
+		public TerminalNode VIR(int i) {
+			return getToken(MussumLanguisParser.VIR, i);
+		}
+		public DeclaravarContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_declaravar; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterDeclaravar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitDeclaravar(this);
+		}
+	}
+
+	public final DeclaravarContext declaravar() throws RecognitionException {
+		DeclaravarContext _localctx = new DeclaravarContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_declaravar);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(32);
+			tipo();
+			setState(33);
+			match(ID);
+			setState(38);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==VIR) {
+				{
+				{
+				setState(34);
+				match(VIR);
+				setState(35);
+				match(ID);
+				}
+				}
+				setState(40);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(41);
+			match(SC);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class TipoContext extends ParserRuleContext {
+		public TipoContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_tipo; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterTipo(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitTipo(this);
+		}
+	}
+
+	public final TipoContext tipo() throws RecognitionException {
+		TipoContext _localctx = new TipoContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_tipo);
+		try {
+			setState(47);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case T__2:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(43);
+				match(T__2);
+				System.out.println("TIPO NUMERO")
+				}
+				break;
+			case T__3:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(45);
+				match(T__3);
+				System.out.println("TIPO TEXTO")
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -150,25 +333,25 @@ public class MussumLanguisParser extends Parser {
 
 	public final BlocoContext bloco() throws RecognitionException {
 		BlocoContext _localctx = new BlocoContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_bloco);
+		enterRule(_localctx, 8, RULE_bloco);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(21); 
+			setState(50); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(20);
+				setState(49);
 				cmd();
 				}
 				}
-				setState(23); 
+				setState(52); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__3) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << ID))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -208,23 +391,23 @@ public class MussumLanguisParser extends Parser {
 
 	public final CmdContext cmd() throws RecognitionException {
 		CmdContext _localctx = new CmdContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_cmd);
+		enterRule(_localctx, 10, RULE_cmd);
 		try {
-			setState(34);
+			setState(63);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__2:
+			case T__4:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(25);
+				setState(54);
 				cmdleitura();
 				 System.out.println("Reconheci um comando de leitura!");  
 				}
 				break;
-			case T__3:
+			case T__5:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(28);
+				setState(57);
 				cmdescrita();
 				 System.out.println("Reconheci um comando de escrita");   
 				}
@@ -232,7 +415,7 @@ public class MussumLanguisParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(31);
+				setState(60);
 				cmdattrib();
 				 System.out.println("Reconheci um comando de atribuicao");
 				}
@@ -273,20 +456,20 @@ public class MussumLanguisParser extends Parser {
 
 	public final CmdleituraContext cmdleitura() throws RecognitionException {
 		CmdleituraContext _localctx = new CmdleituraContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_cmdleitura);
+		enterRule(_localctx, 12, RULE_cmdleitura);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
-			match(T__2);
-			setState(37);
+			setState(65);
+			match(T__4);
+			setState(66);
 			match(AP);
-			setState(38);
+			setState(67);
 			match(ID);
 			 System.out.println("ID=" + _input.LT(-1).getText());
-			setState(40);
+			setState(69);
 			match(FP);
-			setState(41);
+			setState(70);
 			match(SC);
 			}
 		}
@@ -322,19 +505,19 @@ public class MussumLanguisParser extends Parser {
 
 	public final CmdescritaContext cmdescrita() throws RecognitionException {
 		CmdescritaContext _localctx = new CmdescritaContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_cmdescrita);
+		enterRule(_localctx, 14, RULE_cmdescrita);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43);
-			match(T__3);
-			setState(44);
+			setState(72);
+			match(T__5);
+			setState(73);
 			match(AP);
-			setState(45);
+			setState(74);
 			match(ID);
-			setState(46);
+			setState(75);
 			match(FP);
-			setState(47);
+			setState(76);
 			match(SC);
 			}
 		}
@@ -372,17 +555,17 @@ public class MussumLanguisParser extends Parser {
 
 	public final CmdattribContext cmdattrib() throws RecognitionException {
 		CmdattribContext _localctx = new CmdattribContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_cmdattrib);
+		enterRule(_localctx, 16, RULE_cmdattrib);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49);
+			setState(78);
 			match(ID);
-			setState(50);
+			setState(79);
 			match(ATTR);
-			setState(51);
+			setState(80);
 			expr();
-			setState(52);
+			setState(81);
 			match(SC);
 			}
 		}
@@ -424,26 +607,26 @@ public class MussumLanguisParser extends Parser {
 
 	public final ExprContext expr() throws RecognitionException {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_expr);
+		enterRule(_localctx, 18, RULE_expr);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(54);
+			setState(83);
 			termo();
-			setState(59);
+			setState(88);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==OP) {
 				{
 				{
-				setState(55);
+				setState(84);
 				match(OP);
-				setState(56);
+				setState(85);
 				termo();
 				}
 				}
-				setState(61);
+				setState(90);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -479,12 +662,12 @@ public class MussumLanguisParser extends Parser {
 
 	public final TermoContext termo() throws RecognitionException {
 		TermoContext _localctx = new TermoContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_termo);
+		enterRule(_localctx, 20, RULE_termo);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(62);
+			setState(91);
 			_la = _input.LA(1);
 			if ( !(_la==ID || _la==NUMBER) ) {
 			_errHandler.recoverInline(this);
@@ -508,22 +691,29 @@ public class MussumLanguisParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\16C\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\3\2\3\3"+
-		"\6\3\30\n\3\r\3\16\3\31\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4%\n\4\3"+
-		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7"+
-		"\3\b\3\b\3\b\7\b<\n\b\f\b\16\b?\13\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n\f\16"+
-		"\20\2\3\3\2\f\r\2>\2\22\3\2\2\2\4\27\3\2\2\2\6$\3\2\2\2\b&\3\2\2\2\n-"+
-		"\3\2\2\2\f\63\3\2\2\2\168\3\2\2\2\20@\3\2\2\2\22\23\7\3\2\2\23\24\5\4"+
-		"\3\2\24\25\7\4\2\2\25\3\3\2\2\2\26\30\5\6\4\2\27\26\3\2\2\2\30\31\3\2"+
-		"\2\2\31\27\3\2\2\2\31\32\3\2\2\2\32\5\3\2\2\2\33\34\5\b\5\2\34\35\b\4"+
-		"\1\2\35%\3\2\2\2\36\37\5\n\6\2\37 \b\4\1\2 %\3\2\2\2!\"\5\f\7\2\"#\b\4"+
-		"\1\2#%\3\2\2\2$\33\3\2\2\2$\36\3\2\2\2$!\3\2\2\2%\7\3\2\2\2&\'\7\5\2\2"+
-		"\'(\7\7\2\2()\7\f\2\2)*\b\5\1\2*+\7\b\2\2+,\7\t\2\2,\t\3\2\2\2-.\7\6\2"+
-		"\2./\7\7\2\2/\60\7\f\2\2\60\61\7\b\2\2\61\62\7\t\2\2\62\13\3\2\2\2\63"+
-		"\64\7\f\2\2\64\65\7\13\2\2\65\66\5\16\b\2\66\67\7\t\2\2\67\r\3\2\2\28"+
-		"=\5\20\t\29:\7\n\2\2:<\5\20\t\2;9\3\2\2\2<?\3\2\2\2=;\3\2\2\2=>\3\2\2"+
-		"\2>\17\3\2\2\2?=\3\2\2\2@A\t\2\2\2A\21\3\2\2\2\5\31$=";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21`\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
+		"\f\t\f\3\2\3\2\3\2\3\2\3\2\3\3\6\3\37\n\3\r\3\16\3 \3\4\3\4\3\4\3\4\7"+
+		"\4\'\n\4\f\4\16\4*\13\4\3\4\3\4\3\5\3\5\3\5\3\5\5\5\62\n\5\3\6\6\6\65"+
+		"\n\6\r\6\16\6\66\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7B\n\7\3\b\3\b"+
+		"\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\13"+
+		"\3\13\3\13\7\13Y\n\13\f\13\16\13\\\13\13\3\f\3\f\3\f\2\2\r\2\4\6\b\n\f"+
+		"\16\20\22\24\26\2\3\3\2\17\20\2[\2\30\3\2\2\2\4\36\3\2\2\2\6\"\3\2\2\2"+
+		"\b\61\3\2\2\2\n\64\3\2\2\2\fA\3\2\2\2\16C\3\2\2\2\20J\3\2\2\2\22P\3\2"+
+		"\2\2\24U\3\2\2\2\26]\3\2\2\2\30\31\7\3\2\2\31\32\5\4\3\2\32\33\5\n\6\2"+
+		"\33\34\7\4\2\2\34\3\3\2\2\2\35\37\5\6\4\2\36\35\3\2\2\2\37 \3\2\2\2 \36"+
+		"\3\2\2\2 !\3\2\2\2!\5\3\2\2\2\"#\5\b\5\2#(\7\17\2\2$%\7\16\2\2%\'\7\17"+
+		"\2\2&$\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)+\3\2\2\2*(\3\2\2\2+,\7"+
+		"\13\2\2,\7\3\2\2\2-.\7\5\2\2.\62\b\5\1\2/\60\7\6\2\2\60\62\b\5\1\2\61"+
+		"-\3\2\2\2\61/\3\2\2\2\62\t\3\2\2\2\63\65\5\f\7\2\64\63\3\2\2\2\65\66\3"+
+		"\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\67\13\3\2\2\289\5\16\b\29:\b\7\1\2"+
+		":B\3\2\2\2;<\5\20\t\2<=\b\7\1\2=B\3\2\2\2>?\5\22\n\2?@\b\7\1\2@B\3\2\2"+
+		"\2A8\3\2\2\2A;\3\2\2\2A>\3\2\2\2B\r\3\2\2\2CD\7\7\2\2DE\7\t\2\2EF\7\17"+
+		"\2\2FG\b\b\1\2GH\7\n\2\2HI\7\13\2\2I\17\3\2\2\2JK\7\b\2\2KL\7\t\2\2LM"+
+		"\7\17\2\2MN\7\n\2\2NO\7\13\2\2O\21\3\2\2\2PQ\7\17\2\2QR\7\r\2\2RS\5\24"+
+		"\13\2ST\7\13\2\2T\23\3\2\2\2UZ\5\26\f\2VW\7\f\2\2WY\5\26\f\2XV\3\2\2\2"+
+		"Y\\\3\2\2\2ZX\3\2\2\2Z[\3\2\2\2[\25\3\2\2\2\\Z\3\2\2\2]^\t\2\2\2^\27\3"+
+		"\2\2\2\b (\61\66AZ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -4,8 +4,19 @@
  
 grammar MussumLanguis;
 
-prog	: 'programis'  bloco  'cacildis;' 
+prog	: 'programis' decl bloco  'cacildis;' 
 		;
+		
+decl	: (declaravar)+
+		;
+		
+declaravar	: tipo ID (VIR ID)* SC
+			;
+
+tipo	: 'numeris' {System.out.println("TIPO NUMERO")} | 'textis' {System.out.println("TIPO TEXTO")}
+		;
+		
+
 		
 bloco	: (cmd)+
 		;
@@ -49,6 +60,9 @@ OP	: '+' | '-' | '*' | '/'
 	
 ATTR : '='
 	 ;
+	 
+VIR	: ','
+	;
 	 
 ID	: [a-z] ([a-z] | [A-Z] | [0-9])*
 	;
