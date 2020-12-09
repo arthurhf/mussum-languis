@@ -1,2 +1,3 @@
 module mussumLanguis {
+	requires antlr;
 }
