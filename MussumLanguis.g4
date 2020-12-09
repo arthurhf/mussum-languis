@@ -1,6 +1,10 @@
+/** java -cp .:antlr-4.7.1-complete.jar org.antlr.v4.Tool MussumLanguis.g4 -package br.com.mussumlanguis.parser -o ./src/br/com/mussumlanguis/parser/
+ * 
+ */
+ 
 grammar MussumLanguis;
 
-prog	: 'programa'  bloco  'fimprog;' 
+prog	: 'programis'  bloco  'cacildis;' 
 		;
 		
 bloco	: (cmd)+
@@ -12,13 +16,13 @@ cmd		:  cmdleitura { System.out.println("Reconheci um comando de leitura!");  }
  		|  cmdattrib  { System.out.println("Reconheci um comando de atribuicao");}
 		;
 		
-cmdleitura	: 'leia' AP
+cmdleitura	: 'inputis' AP
                      ID { System.out.println("ID=" + _input.LT(-1).getText());} 
                      FP 
                      SC 
 			;
 			
-cmdescrita	: 'escreva' AP ID FP SC
+cmdescrita	: 'escrevis' AP ID FP SC
 			;
 			
 cmdattrib	:  ID ATTR expr SC

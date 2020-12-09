@@ -1,0 +1,10 @@
+programis
+	inputis(a);
+	inputis(b);
+	
+	a = 1+2+3/b;
+	
+	escrevis(a);
+	escrevis(b);
+	
+cacildis

@@ -28,8 +28,8 @@ public class MussumLanguisParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'programa'", "'fimprog;'", "'leia'", "'escreva'", "'('", "')'", 
-		"';'", null, "'='"
+		null, "'programis'", "'cacildis;'", "'inputis'", "'escrevis'", "'('", 
+		"')'", "';'", null, "'='"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, null, null, "AP", "FP", "SC", "OP", "ATTR", "ID", "NUMBER", 
