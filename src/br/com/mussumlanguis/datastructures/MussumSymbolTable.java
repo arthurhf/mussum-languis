@@ -1,6 +1,8 @@
 package br.com.mussumlanguis.datastructures;
 
 import java.util.HashMap;
+import java.util.Set;
+import java.util.ArrayList;
 
 public class MussumSymbolTable {
 	private  HashMap<String, MussumSymbol> map;
@@ -19,5 +21,9 @@ public class MussumSymbolTable {
 	
 	public MussumSymbol get(String symbolName) {
 		return map.get(symbolName);
+	}
+
+	public Set<String> keySet() {
+		return map.keySet();
 	}
 }

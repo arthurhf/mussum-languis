@@ -1,13 +1,12 @@
 programis
 
 	numeris a, b;
-	textis t1;
-	
 	
 	a = 1;
 	
 	paris(i=0;i<3;i++){
 		escrevis(a);
+		
 	}
 	
 cacildis;

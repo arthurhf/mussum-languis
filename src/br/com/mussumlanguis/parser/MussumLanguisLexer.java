@@ -1,5 +1,10 @@
 // Generated from MussumLanguis.g4 by ANTLR 4.7.1
 package br.com.mussumlanguis.parser;
+
+	import br.com.mussumlanguis.datastructures.*;
+	import br.com.mussumlanguis.exceptions.*; 	
+ 	import java.util.ArrayList;
+ 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -77,6 +82,47 @@ public class MussumLanguisLexer extends Lexer {
 		return VOCABULARY;
 	}
 
+
+	 	private int _type;
+	 	private String _varName;
+	 	private String _varValue;
+	 	private MussumSymbolTable symbolTable = new MussumSymbolTable();
+	 	private MussumSymbol symbol;
+	 	
+	 	public void addSymbol(){
+	 		_varName = ((TokenStream) _input).LT(-1).getText();
+			_varValue = null;
+			if(!symbolTable.exists(_varName)){
+				symbol = new MussumVariable(_varName, _type, _varValue);
+				symbolTable.add(symbol);
+				System.out.println("Symbol added " + symbol);
+			}else{
+				throw new MussumSemanticException("Symbol "+_varName+ " already declared");
+			}
+			
+	 	}
+	 	
+	 	public void checkID(String id){
+	 		if(!symbolTable.exists(id)){
+	        	throw new MussumSemanticException("Symbol "+id+" not declared");
+	        }
+	 		
+	 	}
+	 	
+	 	public void checkVariableUsage(){
+	 		for (String i : symbolTable.keySet()) {
+	 			if(((MussumVariable) symbolTable.get(i)).getValue() == null){
+	 				System.out.println("Variable " + i + " was never used");
+	 			}
+			}
+	 	}
+	 	
+	 	public void addVariableValue(String id, String value){
+	 		((MussumVariable) symbolTable.get(id)).setValue(value);
+	 		System.out.println("changed value " + symbolTable.get(id));
+	 	}
+	 	
+	 
 
 	public MussumLanguisLexer(CharStream input) {
 		super(input);
