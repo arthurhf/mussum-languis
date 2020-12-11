@@ -1,5 +1,11 @@
 // Generated from MussumLanguis.g4 by ANTLR 4.7.1
 package br.com.mussumlanguis.parser;
+
+	import br.com.mussumlanguis.datastructures.MussumSymbol;
+	import br.com.mussumlanguis.datastructures.MussumSymbolTable;
+	import br.com.mussumlanguis.datastructures.MussumVariable;
+	import br.com.mussumlanguis.exceptions.MussumSemanticException;
+
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -76,6 +82,34 @@ public class MussumLanguisLexer extends Lexer {
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
+
+
+		private int _type;
+		private String _varName;
+		private String _varValue;
+		private MussumSymbolTable symbolTable = new MussumSymbolTable();
+		private MussumSymbol symbol;
+		
+		public void verifyID() {
+			String id = _input.LT(-1).getText();
+			
+			if (!symbolTable.exists(id)) {
+				throw new MussumSemanticException("Symbol " + id + " not declared");
+			}
+		}
+		
+		public void addSymbol() {
+			_varName = _input.LT(-1).getText();
+			_varValue = null;
+			symbol = new MussumVariable(_varName, _type, _varValue);
+			
+			if (!symbolTable.exists(_varName)) {
+				System.out.println("Simbolo adicionado: " + symbol); 
+				symbolTable.add(symbol);
+			} else {
+				throw new MussumSemanticException("Symbol " + _varName + " already declared");
+			}
+		}
 
 
 	public MussumLanguisLexer(CharStream input) {

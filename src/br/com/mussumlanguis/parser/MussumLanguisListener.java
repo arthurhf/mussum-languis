@@ -1,5 +1,11 @@
 // Generated from MussumLanguis.g4 by ANTLR 4.7.1
 package br.com.mussumlanguis.parser;
+
+	import br.com.mussumlanguis.datastructures.MussumSymbol;
+	import br.com.mussumlanguis.datastructures.MussumSymbolTable;
+	import br.com.mussumlanguis.datastructures.MussumVariable;
+	import br.com.mussumlanguis.exceptions.MussumSemanticException;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

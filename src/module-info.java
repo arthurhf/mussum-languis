@@ -1,3 +1,0 @@
-module mussumLanguis {
-	requires antlr;
-}
