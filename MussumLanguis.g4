@@ -4,55 +4,57 @@
  
 grammar MussumLanguis;
 
-prog	: 'programis' decl bloco  'cacildis;' 
+prog	: 'programis' decl block 'cacildis;' 
 		;
 		
-decl	: (declaravar)+
+decl	: (var_decl)+
 		;
 		
-declaravar	: tipo ID (VIR ID)* SC
+var_decl	: type ID (COMMA ID)* SC
 			;
 
-tipo	: 'numeris' {System.out.println("TIPO NUMERO");} | 'textis' {System.out.println("TIPO TEXTO");}
+type	: 'numeris'	{	System.out.println("TIPO NUMERO");	} 
+		| 'textis' 	{	System.out.println("TIPO TEXTO");	}
 		;
 		
-bloco	: (cmd)+
+block	: (cmd)+
 		;
 		
-forg	: FOR AP ID ATTR expr SC ID OPREL (NUMBER|ID) SC varChange FP LCURL bloco RCURL
+forg	: FOR L_PAREN ID ATTR expr SC ID OPREL (NUMBER|ID) SC var_change R_PAREN L_CURL block R_CURL
 		;
-varChange	: ID op=('++'|'--' | '-') WS*
+var_change	: ID op=('++'|'--' | '-') WS*
 			;
-cmd		:  cmdleitura { System.out.println("Reconheci um comando de leitura!");  } 
- 		|  cmdescrita { System.out.println("Reconheci um comando de escrita");   }
- 		|  cmdattrib  { System.out.println("Reconheci um comando de atribuicao");}
- 		|	forg	{System.out.println("Reconheci um laço for");}
+			
+cmd		: read_cmd 	{	System.out.println("Reconheci um comando de leitura!");		} 
+ 		| write_cmd	{	System.out.println("Reconheci um comando de escrita");		}
+ 		| attr_cmd	{	System.out.println("Reconheci um comando de atribuicao");	}
+ 		| forg		{	System.out.println("Reconheci um laço for");				}
 		;
 		
-cmdleitura	: 'inputis' AP
-                     ID { System.out.println("ID=" + _input.LT(-1).getText());} 
-                     FP 
-                     SC 
+read_cmd	: 'inputis'	L_PAREN
+                     	ID 	{	System.out.println("ID=" + _input.LT(-1).getText());	} 
+                     	R_PAREN
+                     	SC 
 			;
 			
-cmdescrita	: 'escrevis' AP ID FP SC
+write_cmd	: 'escrevis' L_PAREN ID R_PAREN SC
 			;
 			
-cmdattrib	:  ID ATTR expr SC
+attr_cmd		:  ID ATTR expr SC
 			;
 			
-expr		:  termo ( OP termo )*
+expr		:  expr_token ( OP expr_token)*
 			;
 			
-termo		: ID | NUMBER
+expr_token	: ID | NUMBER
 			;
 			
 	
-AP	: '('
-	;
+L_PAREN	: '('
+		;
 	
-FP	: ')'
-	;
+R_PAREN	: ')'
+		;
 	
 SC	: ';'
 	;
@@ -63,13 +65,17 @@ OP	: '+' | '-' | '*' | '/'
 ATTR : '='
 	 ;
 
-FOR	: 'paris' ;
-
-LCURL	: '{' ;
-RCURL	: '}' ;
-	 
-VIR	: ','
+FOR	: 'paris' 
 	;
+
+L_CURL	: '{' 
+		;
+
+R_CURL	: '}' 
+		;
+	 
+COMMA	: ','
+		;
 	
 OPREL : '>' | '<' | '>=' | '<=' | '==' | '!='
       ;

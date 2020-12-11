@@ -34,15 +34,15 @@ null
 null
 null
 null
-AP
-FP
+L_PAREN
+R_PAREN
 SC
 OP
 ATTR
 FOR
-LCURL
-RCURL
-VIR
+L_CURL
+R_CURL
+COMMA
 OPREL
 ID
 NUMBER
@@ -51,17 +51,17 @@ WS
 rule names:
 prog
 decl
-declaravar
-tipo
-bloco
+var_decl
+type
+block
 forg
-varChange
+var_change
 cmd
-cmdleitura
-cmdescrita
-cmdattrib
+read_cmd
+write_cmd
+attr_cmd
 expr
-termo
+expr_token
 
 
 atn:

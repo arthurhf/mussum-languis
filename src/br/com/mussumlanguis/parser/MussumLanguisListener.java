@@ -28,35 +28,35 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 */
 	void exitDecl(MussumLanguisParser.DeclContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#declaravar}.
+	 * Enter a parse tree produced by {@link MussumLanguisParser#var_decl}.
 	 * @param ctx the parse tree
 	 */
-	void enterDeclaravar(MussumLanguisParser.DeclaravarContext ctx);
+	void enterVar_decl(MussumLanguisParser.Var_declContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#declaravar}.
+	 * Exit a parse tree produced by {@link MussumLanguisParser#var_decl}.
 	 * @param ctx the parse tree
 	 */
-	void exitDeclaravar(MussumLanguisParser.DeclaravarContext ctx);
+	void exitVar_decl(MussumLanguisParser.Var_declContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#tipo}.
+	 * Enter a parse tree produced by {@link MussumLanguisParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void enterTipo(MussumLanguisParser.TipoContext ctx);
+	void enterType(MussumLanguisParser.TypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#tipo}.
+	 * Exit a parse tree produced by {@link MussumLanguisParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void exitTipo(MussumLanguisParser.TipoContext ctx);
+	void exitType(MussumLanguisParser.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#bloco}.
+	 * Enter a parse tree produced by {@link MussumLanguisParser#block}.
 	 * @param ctx the parse tree
 	 */
-	void enterBloco(MussumLanguisParser.BlocoContext ctx);
+	void enterBlock(MussumLanguisParser.BlockContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#bloco}.
+	 * Exit a parse tree produced by {@link MussumLanguisParser#block}.
 	 * @param ctx the parse tree
 	 */
-	void exitBloco(MussumLanguisParser.BlocoContext ctx);
+	void exitBlock(MussumLanguisParser.BlockContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MussumLanguisParser#forg}.
 	 * @param ctx the parse tree
@@ -68,15 +68,15 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 */
 	void exitForg(MussumLanguisParser.ForgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#varChange}.
+	 * Enter a parse tree produced by {@link MussumLanguisParser#var_change}.
 	 * @param ctx the parse tree
 	 */
-	void enterVarChange(MussumLanguisParser.VarChangeContext ctx);
+	void enterVar_change(MussumLanguisParser.Var_changeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#varChange}.
+	 * Exit a parse tree produced by {@link MussumLanguisParser#var_change}.
 	 * @param ctx the parse tree
 	 */
-	void exitVarChange(MussumLanguisParser.VarChangeContext ctx);
+	void exitVar_change(MussumLanguisParser.Var_changeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MussumLanguisParser#cmd}.
 	 * @param ctx the parse tree
@@ -88,35 +88,35 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 */
 	void exitCmd(MussumLanguisParser.CmdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#cmdleitura}.
+	 * Enter a parse tree produced by {@link MussumLanguisParser#read_cmd}.
 	 * @param ctx the parse tree
 	 */
-	void enterCmdleitura(MussumLanguisParser.CmdleituraContext ctx);
+	void enterRead_cmd(MussumLanguisParser.Read_cmdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#cmdleitura}.
+	 * Exit a parse tree produced by {@link MussumLanguisParser#read_cmd}.
 	 * @param ctx the parse tree
 	 */
-	void exitCmdleitura(MussumLanguisParser.CmdleituraContext ctx);
+	void exitRead_cmd(MussumLanguisParser.Read_cmdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#cmdescrita}.
+	 * Enter a parse tree produced by {@link MussumLanguisParser#write_cmd}.
 	 * @param ctx the parse tree
 	 */
-	void enterCmdescrita(MussumLanguisParser.CmdescritaContext ctx);
+	void enterWrite_cmd(MussumLanguisParser.Write_cmdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#cmdescrita}.
+	 * Exit a parse tree produced by {@link MussumLanguisParser#write_cmd}.
 	 * @param ctx the parse tree
 	 */
-	void exitCmdescrita(MussumLanguisParser.CmdescritaContext ctx);
+	void exitWrite_cmd(MussumLanguisParser.Write_cmdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#cmdattrib}.
+	 * Enter a parse tree produced by {@link MussumLanguisParser#attr_cmd}.
 	 * @param ctx the parse tree
 	 */
-	void enterCmdattrib(MussumLanguisParser.CmdattribContext ctx);
+	void enterAttr_cmd(MussumLanguisParser.Attr_cmdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#cmdattrib}.
+	 * Exit a parse tree produced by {@link MussumLanguisParser#attr_cmd}.
 	 * @param ctx the parse tree
 	 */
-	void exitCmdattrib(MussumLanguisParser.CmdattribContext ctx);
+	void exitAttr_cmd(MussumLanguisParser.Attr_cmdContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MussumLanguisParser#expr}.
 	 * @param ctx the parse tree
@@ -128,13 +128,13 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 */
 	void exitExpr(MussumLanguisParser.ExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#termo}.
+	 * Enter a parse tree produced by {@link MussumLanguisParser#expr_token}.
 	 * @param ctx the parse tree
 	 */
-	void enterTermo(MussumLanguisParser.TermoContext ctx);
+	void enterExpr_token(MussumLanguisParser.Expr_tokenContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#termo}.
+	 * Exit a parse tree produced by {@link MussumLanguisParser#expr_token}.
 	 * @param ctx the parse tree
 	 */
-	void exitTermo(MussumLanguisParser.TermoContext ctx);
+	void exitExpr_token(MussumLanguisParser.Expr_tokenContext ctx);
 }

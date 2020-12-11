@@ -1,0 +1,1 @@
+java -cp .:antlr-4.7.1-complete.jar org.antlr.v4.Tool MussumLanguis.g4 -package br.com.mussumlanguis.parser -o ./src/br/com/mussumlanguis/parser/

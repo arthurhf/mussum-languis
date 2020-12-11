@@ -18,15 +18,15 @@ public class MussumLanguisParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		AP=10, FP=11, SC=12, OP=13, ATTR=14, FOR=15, LCURL=16, RCURL=17, VIR=18, 
-		OPREL=19, ID=20, NUMBER=21, WS=22;
+		L_PAREN=10, R_PAREN=11, SC=12, OP=13, ATTR=14, FOR=15, L_CURL=16, R_CURL=17, 
+		COMMA=18, OPREL=19, ID=20, NUMBER=21, WS=22;
 	public static final int
-		RULE_prog = 0, RULE_decl = 1, RULE_declaravar = 2, RULE_tipo = 3, RULE_bloco = 4, 
-		RULE_forg = 5, RULE_varChange = 6, RULE_cmd = 7, RULE_cmdleitura = 8, 
-		RULE_cmdescrita = 9, RULE_cmdattrib = 10, RULE_expr = 11, RULE_termo = 12;
+		RULE_prog = 0, RULE_decl = 1, RULE_var_decl = 2, RULE_type = 3, RULE_block = 4, 
+		RULE_forg = 5, RULE_var_change = 6, RULE_cmd = 7, RULE_read_cmd = 8, RULE_write_cmd = 9, 
+		RULE_attr_cmd = 10, RULE_expr = 11, RULE_expr_token = 12;
 	public static final String[] ruleNames = {
-		"prog", "decl", "declaravar", "tipo", "bloco", "forg", "varChange", "cmd", 
-		"cmdleitura", "cmdescrita", "cmdattrib", "expr", "termo"
+		"prog", "decl", "var_decl", "type", "block", "forg", "var_change", "cmd", 
+		"read_cmd", "write_cmd", "attr_cmd", "expr", "expr_token"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -35,9 +35,9 @@ public class MussumLanguisParser extends Parser {
 		"'{'", "'}'", "','"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, null, null, "AP", "FP", 
-		"SC", "OP", "ATTR", "FOR", "LCURL", "RCURL", "VIR", "OPREL", "ID", "NUMBER", 
-		"WS"
+		null, null, null, null, null, null, null, null, null, null, "L_PAREN", 
+		"R_PAREN", "SC", "OP", "ATTR", "FOR", "L_CURL", "R_CURL", "COMMA", "OPREL", 
+		"ID", "NUMBER", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -92,8 +92,8 @@ public class MussumLanguisParser extends Parser {
 		public DeclContext decl() {
 			return getRuleContext(DeclContext.class,0);
 		}
-		public BlocoContext bloco() {
-			return getRuleContext(BlocoContext.class,0);
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
 		}
 		public ProgContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -120,7 +120,7 @@ public class MussumLanguisParser extends Parser {
 			setState(27);
 			decl();
 			setState(28);
-			bloco();
+			block();
 			setState(29);
 			match(T__1);
 			}
@@ -137,11 +137,11 @@ public class MussumLanguisParser extends Parser {
 	}
 
 	public static class DeclContext extends ParserRuleContext {
-		public List<DeclaravarContext> declaravar() {
-			return getRuleContexts(DeclaravarContext.class);
+		public List<Var_declContext> var_decl() {
+			return getRuleContexts(Var_declContext.class);
 		}
-		public DeclaravarContext declaravar(int i) {
-			return getRuleContext(DeclaravarContext.class,i);
+		public Var_declContext var_decl(int i) {
+			return getRuleContext(Var_declContext.class,i);
 		}
 		public DeclContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -171,7 +171,7 @@ public class MussumLanguisParser extends Parser {
 				{
 				{
 				setState(31);
-				declaravar();
+				var_decl();
 				}
 				}
 				setState(34); 
@@ -191,52 +191,52 @@ public class MussumLanguisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class DeclaravarContext extends ParserRuleContext {
-		public TipoContext tipo() {
-			return getRuleContext(TipoContext.class,0);
+	public static class Var_declContext extends ParserRuleContext {
+		public TypeContext type() {
+			return getRuleContext(TypeContext.class,0);
 		}
 		public List<TerminalNode> ID() { return getTokens(MussumLanguisParser.ID); }
 		public TerminalNode ID(int i) {
 			return getToken(MussumLanguisParser.ID, i);
 		}
 		public TerminalNode SC() { return getToken(MussumLanguisParser.SC, 0); }
-		public List<TerminalNode> VIR() { return getTokens(MussumLanguisParser.VIR); }
-		public TerminalNode VIR(int i) {
-			return getToken(MussumLanguisParser.VIR, i);
+		public List<TerminalNode> COMMA() { return getTokens(MussumLanguisParser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(MussumLanguisParser.COMMA, i);
 		}
-		public DeclaravarContext(ParserRuleContext parent, int invokingState) {
+		public Var_declContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_declaravar; }
+		@Override public int getRuleIndex() { return RULE_var_decl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterDeclaravar(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterVar_decl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitDeclaravar(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitVar_decl(this);
 		}
 	}
 
-	public final DeclaravarContext declaravar() throws RecognitionException {
-		DeclaravarContext _localctx = new DeclaravarContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_declaravar);
+	public final Var_declContext var_decl() throws RecognitionException {
+		Var_declContext _localctx = new Var_declContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_var_decl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(36);
-			tipo();
+			type();
 			setState(37);
 			match(ID);
 			setState(42);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==VIR) {
+			while (_la==COMMA) {
 				{
 				{
 				setState(38);
-				match(VIR);
+				match(COMMA);
 				setState(39);
 				match(ID);
 				}
@@ -260,24 +260,24 @@ public class MussumLanguisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class TipoContext extends ParserRuleContext {
-		public TipoContext(ParserRuleContext parent, int invokingState) {
+	public static class TypeContext extends ParserRuleContext {
+		public TypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_tipo; }
+		@Override public int getRuleIndex() { return RULE_type; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterTipo(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitTipo(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitType(this);
 		}
 	}
 
-	public final TipoContext tipo() throws RecognitionException {
-		TipoContext _localctx = new TipoContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_tipo);
+	public final TypeContext type() throws RecognitionException {
+		TypeContext _localctx = new TypeContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_type);
 		try {
 			setState(51);
 			_errHandler.sync(this);
@@ -287,7 +287,7 @@ public class MussumLanguisParser extends Parser {
 				{
 				setState(47);
 				match(T__2);
-				System.out.println("TIPO NUMERO");
+					System.out.println("TIPO NUMERO");	
 				}
 				break;
 			case T__3:
@@ -295,7 +295,7 @@ public class MussumLanguisParser extends Parser {
 				{
 				setState(49);
 				match(T__3);
-				System.out.println("TIPO TEXTO");
+					System.out.println("TIPO TEXTO");	
 				}
 				break;
 			default:
@@ -313,30 +313,30 @@ public class MussumLanguisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class BlocoContext extends ParserRuleContext {
+	public static class BlockContext extends ParserRuleContext {
 		public List<CmdContext> cmd() {
 			return getRuleContexts(CmdContext.class);
 		}
 		public CmdContext cmd(int i) {
 			return getRuleContext(CmdContext.class,i);
 		}
-		public BlocoContext(ParserRuleContext parent, int invokingState) {
+		public BlockContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_bloco; }
+		@Override public int getRuleIndex() { return RULE_block; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterBloco(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterBlock(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitBloco(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitBlock(this);
 		}
 	}
 
-	public final BlocoContext bloco() throws RecognitionException {
-		BlocoContext _localctx = new BlocoContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_bloco);
+	public final BlockContext block() throws RecognitionException {
+		BlockContext _localctx = new BlockContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_block);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -370,7 +370,7 @@ public class MussumLanguisParser extends Parser {
 
 	public static class ForgContext extends ParserRuleContext {
 		public TerminalNode FOR() { return getToken(MussumLanguisParser.FOR, 0); }
-		public TerminalNode AP() { return getToken(MussumLanguisParser.AP, 0); }
+		public TerminalNode L_PAREN() { return getToken(MussumLanguisParser.L_PAREN, 0); }
 		public List<TerminalNode> ID() { return getTokens(MussumLanguisParser.ID); }
 		public TerminalNode ID(int i) {
 			return getToken(MussumLanguisParser.ID, i);
@@ -384,15 +384,15 @@ public class MussumLanguisParser extends Parser {
 			return getToken(MussumLanguisParser.SC, i);
 		}
 		public TerminalNode OPREL() { return getToken(MussumLanguisParser.OPREL, 0); }
-		public VarChangeContext varChange() {
-			return getRuleContext(VarChangeContext.class,0);
+		public Var_changeContext var_change() {
+			return getRuleContext(Var_changeContext.class,0);
 		}
-		public TerminalNode FP() { return getToken(MussumLanguisParser.FP, 0); }
-		public TerminalNode LCURL() { return getToken(MussumLanguisParser.LCURL, 0); }
-		public BlocoContext bloco() {
-			return getRuleContext(BlocoContext.class,0);
+		public TerminalNode R_PAREN() { return getToken(MussumLanguisParser.R_PAREN, 0); }
+		public TerminalNode L_CURL() { return getToken(MussumLanguisParser.L_CURL, 0); }
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
 		}
-		public TerminalNode RCURL() { return getToken(MussumLanguisParser.RCURL, 0); }
+		public TerminalNode R_CURL() { return getToken(MussumLanguisParser.R_CURL, 0); }
 		public TerminalNode NUMBER() { return getToken(MussumLanguisParser.NUMBER, 0); }
 		public ForgContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -418,7 +418,7 @@ public class MussumLanguisParser extends Parser {
 			setState(58);
 			match(FOR);
 			setState(59);
-			match(AP);
+			match(L_PAREN);
 			setState(60);
 			match(ID);
 			setState(61);
@@ -444,15 +444,15 @@ public class MussumLanguisParser extends Parser {
 			setState(67);
 			match(SC);
 			setState(68);
-			varChange();
+			var_change();
 			setState(69);
-			match(FP);
+			match(R_PAREN);
 			setState(70);
-			match(LCURL);
+			match(L_CURL);
 			setState(71);
-			bloco();
+			block();
 			setState(72);
-			match(RCURL);
+			match(R_CURL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -466,30 +466,30 @@ public class MussumLanguisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class VarChangeContext extends ParserRuleContext {
+	public static class Var_changeContext extends ParserRuleContext {
 		public Token op;
 		public TerminalNode ID() { return getToken(MussumLanguisParser.ID, 0); }
 		public List<TerminalNode> WS() { return getTokens(MussumLanguisParser.WS); }
 		public TerminalNode WS(int i) {
 			return getToken(MussumLanguisParser.WS, i);
 		}
-		public VarChangeContext(ParserRuleContext parent, int invokingState) {
+		public Var_changeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_varChange; }
+		@Override public int getRuleIndex() { return RULE_var_change; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterVarChange(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterVar_change(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitVarChange(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitVar_change(this);
 		}
 	}
 
-	public final VarChangeContext varChange() throws RecognitionException {
-		VarChangeContext _localctx = new VarChangeContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_varChange);
+	public final Var_changeContext var_change() throws RecognitionException {
+		Var_changeContext _localctx = new Var_changeContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_var_change);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -497,10 +497,10 @@ public class MussumLanguisParser extends Parser {
 			setState(74);
 			match(ID);
 			setState(75);
-			((VarChangeContext)_localctx).op = _input.LT(1);
+			((Var_changeContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6))) != 0)) ) {
-				((VarChangeContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+				((Var_changeContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 			}
 			else {
 				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -535,14 +535,14 @@ public class MussumLanguisParser extends Parser {
 	}
 
 	public static class CmdContext extends ParserRuleContext {
-		public CmdleituraContext cmdleitura() {
-			return getRuleContext(CmdleituraContext.class,0);
+		public Read_cmdContext read_cmd() {
+			return getRuleContext(Read_cmdContext.class,0);
 		}
-		public CmdescritaContext cmdescrita() {
-			return getRuleContext(CmdescritaContext.class,0);
+		public Write_cmdContext write_cmd() {
+			return getRuleContext(Write_cmdContext.class,0);
 		}
-		public CmdattribContext cmdattrib() {
-			return getRuleContext(CmdattribContext.class,0);
+		public Attr_cmdContext attr_cmd() {
+			return getRuleContext(Attr_cmdContext.class,0);
 		}
 		public ForgContext forg() {
 			return getRuleContext(ForgContext.class,0);
@@ -572,24 +572,24 @@ public class MussumLanguisParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(82);
-				cmdleitura();
-				 System.out.println("Reconheci um comando de leitura!");  
+				read_cmd();
+					System.out.println("Reconheci um comando de leitura!");		
 				}
 				break;
 			case T__8:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(85);
-				cmdescrita();
-				 System.out.println("Reconheci um comando de escrita");   
+				write_cmd();
+					System.out.println("Reconheci um comando de escrita");		
 				}
 				break;
 			case ID:
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(88);
-				cmdattrib();
-				 System.out.println("Reconheci um comando de atribuicao");
+				attr_cmd();
+					System.out.println("Reconheci um comando de atribuicao");	
 				}
 				break;
 			case FOR:
@@ -597,7 +597,7 @@ public class MussumLanguisParser extends Parser {
 				{
 				setState(91);
 				forg();
-				System.out.println("Reconheci um laço for");
+					System.out.println("Reconheci um laço for");				
 				}
 				break;
 			default:
@@ -615,40 +615,40 @@ public class MussumLanguisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CmdleituraContext extends ParserRuleContext {
-		public TerminalNode AP() { return getToken(MussumLanguisParser.AP, 0); }
+	public static class Read_cmdContext extends ParserRuleContext {
+		public TerminalNode L_PAREN() { return getToken(MussumLanguisParser.L_PAREN, 0); }
 		public TerminalNode ID() { return getToken(MussumLanguisParser.ID, 0); }
-		public TerminalNode FP() { return getToken(MussumLanguisParser.FP, 0); }
+		public TerminalNode R_PAREN() { return getToken(MussumLanguisParser.R_PAREN, 0); }
 		public TerminalNode SC() { return getToken(MussumLanguisParser.SC, 0); }
-		public CmdleituraContext(ParserRuleContext parent, int invokingState) {
+		public Read_cmdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_cmdleitura; }
+		@Override public int getRuleIndex() { return RULE_read_cmd; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterCmdleitura(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterRead_cmd(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitCmdleitura(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitRead_cmd(this);
 		}
 	}
 
-	public final CmdleituraContext cmdleitura() throws RecognitionException {
-		CmdleituraContext _localctx = new CmdleituraContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_cmdleitura);
+	public final Read_cmdContext read_cmd() throws RecognitionException {
+		Read_cmdContext _localctx = new Read_cmdContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_read_cmd);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(96);
 			match(T__7);
 			setState(97);
-			match(AP);
+			match(L_PAREN);
 			setState(98);
 			match(ID);
-			 System.out.println("ID=" + _input.LT(-1).getText());
+				System.out.println("ID=" + _input.LT(-1).getText());	
 			setState(100);
-			match(FP);
+			match(R_PAREN);
 			setState(101);
 			match(SC);
 			}
@@ -664,39 +664,39 @@ public class MussumLanguisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CmdescritaContext extends ParserRuleContext {
-		public TerminalNode AP() { return getToken(MussumLanguisParser.AP, 0); }
+	public static class Write_cmdContext extends ParserRuleContext {
+		public TerminalNode L_PAREN() { return getToken(MussumLanguisParser.L_PAREN, 0); }
 		public TerminalNode ID() { return getToken(MussumLanguisParser.ID, 0); }
-		public TerminalNode FP() { return getToken(MussumLanguisParser.FP, 0); }
+		public TerminalNode R_PAREN() { return getToken(MussumLanguisParser.R_PAREN, 0); }
 		public TerminalNode SC() { return getToken(MussumLanguisParser.SC, 0); }
-		public CmdescritaContext(ParserRuleContext parent, int invokingState) {
+		public Write_cmdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_cmdescrita; }
+		@Override public int getRuleIndex() { return RULE_write_cmd; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterCmdescrita(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterWrite_cmd(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitCmdescrita(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitWrite_cmd(this);
 		}
 	}
 
-	public final CmdescritaContext cmdescrita() throws RecognitionException {
-		CmdescritaContext _localctx = new CmdescritaContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_cmdescrita);
+	public final Write_cmdContext write_cmd() throws RecognitionException {
+		Write_cmdContext _localctx = new Write_cmdContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_write_cmd);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(103);
 			match(T__8);
 			setState(104);
-			match(AP);
+			match(L_PAREN);
 			setState(105);
 			match(ID);
 			setState(106);
-			match(FP);
+			match(R_PAREN);
 			setState(107);
 			match(SC);
 			}
@@ -712,30 +712,30 @@ public class MussumLanguisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CmdattribContext extends ParserRuleContext {
+	public static class Attr_cmdContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(MussumLanguisParser.ID, 0); }
 		public TerminalNode ATTR() { return getToken(MussumLanguisParser.ATTR, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
 		public TerminalNode SC() { return getToken(MussumLanguisParser.SC, 0); }
-		public CmdattribContext(ParserRuleContext parent, int invokingState) {
+		public Attr_cmdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_cmdattrib; }
+		@Override public int getRuleIndex() { return RULE_attr_cmd; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterCmdattrib(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterAttr_cmd(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitCmdattrib(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitAttr_cmd(this);
 		}
 	}
 
-	public final CmdattribContext cmdattrib() throws RecognitionException {
-		CmdattribContext _localctx = new CmdattribContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_cmdattrib);
+	public final Attr_cmdContext attr_cmd() throws RecognitionException {
+		Attr_cmdContext _localctx = new Attr_cmdContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_attr_cmd);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -761,11 +761,11 @@ public class MussumLanguisParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public List<TermoContext> termo() {
-			return getRuleContexts(TermoContext.class);
+		public List<Expr_tokenContext> expr_token() {
+			return getRuleContexts(Expr_tokenContext.class);
 		}
-		public TermoContext termo(int i) {
-			return getRuleContext(TermoContext.class,i);
+		public Expr_tokenContext expr_token(int i) {
+			return getRuleContext(Expr_tokenContext.class,i);
 		}
 		public List<TerminalNode> OP() { return getTokens(MussumLanguisParser.OP); }
 		public TerminalNode OP(int i) {
@@ -793,7 +793,7 @@ public class MussumLanguisParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(114);
-			termo();
+			expr_token();
 			setState(119);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -803,7 +803,7 @@ public class MussumLanguisParser extends Parser {
 				setState(115);
 				match(OP);
 				setState(116);
-				termo();
+				expr_token();
 				}
 				}
 				setState(121);
@@ -823,26 +823,26 @@ public class MussumLanguisParser extends Parser {
 		return _localctx;
 	}
 
-	public static class TermoContext extends ParserRuleContext {
+	public static class Expr_tokenContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(MussumLanguisParser.ID, 0); }
 		public TerminalNode NUMBER() { return getToken(MussumLanguisParser.NUMBER, 0); }
-		public TermoContext(ParserRuleContext parent, int invokingState) {
+		public Expr_tokenContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_termo; }
+		@Override public int getRuleIndex() { return RULE_expr_token; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterTermo(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).enterExpr_token(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitTermo(this);
+			if ( listener instanceof MussumLanguisListener ) ((MussumLanguisListener)listener).exitExpr_token(this);
 		}
 	}
 
-	public final TermoContext termo() throws RecognitionException {
-		TermoContext _localctx = new TermoContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_termo);
+	public final Expr_tokenContext expr_token() throws RecognitionException {
+		Expr_tokenContext _localctx = new Expr_tokenContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_expr_token);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);

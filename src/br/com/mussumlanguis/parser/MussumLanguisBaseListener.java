@@ -40,37 +40,37 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaravar(MussumLanguisParser.DeclaravarContext ctx) { }
+	@Override public void enterVar_decl(MussumLanguisParser.Var_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaravar(MussumLanguisParser.DeclaravarContext ctx) { }
+	@Override public void exitVar_decl(MussumLanguisParser.Var_declContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTipo(MussumLanguisParser.TipoContext ctx) { }
+	@Override public void enterType(MussumLanguisParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTipo(MussumLanguisParser.TipoContext ctx) { }
+	@Override public void exitType(MussumLanguisParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBloco(MussumLanguisParser.BlocoContext ctx) { }
+	@Override public void enterBlock(MussumLanguisParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBloco(MussumLanguisParser.BlocoContext ctx) { }
+	@Override public void exitBlock(MussumLanguisParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -88,13 +88,13 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVarChange(MussumLanguisParser.VarChangeContext ctx) { }
+	@Override public void enterVar_change(MussumLanguisParser.Var_changeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVarChange(MussumLanguisParser.VarChangeContext ctx) { }
+	@Override public void exitVar_change(MussumLanguisParser.Var_changeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -112,37 +112,37 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCmdleitura(MussumLanguisParser.CmdleituraContext ctx) { }
+	@Override public void enterRead_cmd(MussumLanguisParser.Read_cmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCmdleitura(MussumLanguisParser.CmdleituraContext ctx) { }
+	@Override public void exitRead_cmd(MussumLanguisParser.Read_cmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCmdescrita(MussumLanguisParser.CmdescritaContext ctx) { }
+	@Override public void enterWrite_cmd(MussumLanguisParser.Write_cmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCmdescrita(MussumLanguisParser.CmdescritaContext ctx) { }
+	@Override public void exitWrite_cmd(MussumLanguisParser.Write_cmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCmdattrib(MussumLanguisParser.CmdattribContext ctx) { }
+	@Override public void enterAttr_cmd(MussumLanguisParser.Attr_cmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCmdattrib(MussumLanguisParser.CmdattribContext ctx) { }
+	@Override public void exitAttr_cmd(MussumLanguisParser.Attr_cmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -160,13 +160,13 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTermo(MussumLanguisParser.TermoContext ctx) { }
+	@Override public void enterExpr_token(MussumLanguisParser.Expr_tokenContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTermo(MussumLanguisParser.TermoContext ctx) { }
+	@Override public void exitExpr_token(MussumLanguisParser.Expr_tokenContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

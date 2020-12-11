@@ -18,8 +18,8 @@ public class MussumLanguisLexer extends Lexer {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		AP=10, FP=11, SC=12, OP=13, ATTR=14, FOR=15, LCURL=16, RCURL=17, VIR=18, 
-		OPREL=19, ID=20, NUMBER=21, WS=22;
+		L_PAREN=10, R_PAREN=11, SC=12, OP=13, ATTR=14, FOR=15, L_CURL=16, R_CURL=17, 
+		COMMA=18, OPREL=19, ID=20, NUMBER=21, WS=22;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -30,8 +30,8 @@ public class MussumLanguisLexer extends Lexer {
 
 	public static final String[] ruleNames = {
 		"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "T__8", 
-		"AP", "FP", "SC", "OP", "ATTR", "FOR", "LCURL", "RCURL", "VIR", "OPREL", 
-		"ID", "NUMBER", "WS"
+		"L_PAREN", "R_PAREN", "SC", "OP", "ATTR", "FOR", "L_CURL", "R_CURL", "COMMA", 
+		"OPREL", "ID", "NUMBER", "WS"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -40,9 +40,9 @@ public class MussumLanguisLexer extends Lexer {
 		"'{'", "'}'", "','"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, null, null, "AP", "FP", 
-		"SC", "OP", "ATTR", "FOR", "LCURL", "RCURL", "VIR", "OPREL", "ID", "NUMBER", 
-		"WS"
+		null, null, null, null, null, null, null, null, null, null, "L_PAREN", 
+		"R_PAREN", "SC", "OP", "ATTR", "FOR", "L_CURL", "R_CURL", "COMMA", "OPREL", 
+		"ID", "NUMBER", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
