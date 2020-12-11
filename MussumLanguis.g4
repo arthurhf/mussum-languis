@@ -13,18 +13,20 @@ decl	: (declaravar)+
 declaravar	: tipo ID (VIR ID)* SC
 			;
 
-tipo	: 'numeris' {System.out.println("TIPO NUMERO")} | 'textis' {System.out.println("TIPO TEXTO")}
+tipo	: 'numeris' {System.out.println("TIPO NUMERO");} | 'textis' {System.out.println("TIPO TEXTO");}
 		;
-		
-
 		
 bloco	: (cmd)+
 		;
 		
-
+forg	: FOR AP ID ATTR expr SC ID OPREL (NUMBER|ID) SC varChange FP LCURL bloco RCURL
+		;
+varChange	: ID op=('++'|'--' | '-') WS*
+			;
 cmd		:  cmdleitura { System.out.println("Reconheci um comando de leitura!");  } 
  		|  cmdescrita { System.out.println("Reconheci um comando de escrita");   }
  		|  cmdattrib  { System.out.println("Reconheci um comando de atribuicao");}
+ 		|	forg	{System.out.println("Reconheci um laço for");}
 		;
 		
 cmdleitura	: 'inputis' AP
@@ -60,9 +62,17 @@ OP	: '+' | '-' | '*' | '/'
 	
 ATTR : '='
 	 ;
+
+FOR	: 'paris' ;
+
+LCURL	: '{' ;
+RCURL	: '}' ;
 	 
 VIR	: ','
 	;
+	
+OPREL : '>' | '<' | '>=' | '<=' | '==' | '!='
+      ;
 	 
 ID	: [a-z] ([a-z] | [A-Z] | [0-9])*
 	;

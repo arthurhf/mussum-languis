@@ -2,12 +2,12 @@ programis
 
 	numeris a, b;
 	textis t1;
-	inputis(a);
-	inputis(b);
 	
-	a = 1+2+3/b;
 	
-	escrevis(a);
-	escrevis(b);
+	a = 1;
 	
-cacildis
+	paris(i=0;i<3;i++){
+		escrevis(a);
+	}
+	
+cacildis;
