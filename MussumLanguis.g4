@@ -11,6 +11,8 @@ grammar MussumLanguis;
 	import br.com.mussumlanguis.ast.WriteCommand;
 	import br.com.mussumlanguis.ast.AttrCommand;
 	import br.com.mussumlanguis.ast.DecisionCommand;
+	import br.com.mussumlanguis.ast.WhileCommand;
+	import br.com.mussumlanguis.ast.ForCommand;
 	import java.util.ArrayList;
 	import java.util.Stack;
 	import java.util.logging.*; 
@@ -37,6 +39,11 @@ grammar MussumLanguis;
 	private ArrayList<AbstractCommand> trueList;
 	private ArrayList<AbstractCommand> falseList;
 	
+	private String _exprWhile;
+	private String _exprFor;
+	private ArrayList<AbstractCommand> commandList;
+	
+
 	public void verifyID() {
 		String id = ((TokenStream) _input).LT(-1).getText();
 		
@@ -117,10 +124,6 @@ block	:	{	currThread = new ArrayList<AbstractCommand>();
 			}
 			(cmd)+
 		;
-	
-
-var_change	: ID op=('++'|'--' | '-') WS*
-			;
 			
 cmd		: read_cmd 		{	System.out.println("Reconheci um comando de leitura!");		} 
  		| write_cmd		{	System.out.println("Reconheci um comando de escrita");		}
@@ -128,12 +131,6 @@ cmd		: read_cmd 		{	System.out.println("Reconheci um comando de leitura!");		}
  		| attr_cmd		{	System.out.println("Reconheci um comando de atribuicao");	}
  		| forg			{	System.out.println("Reconheci um laço for");				}
  		| whileg		{	System.out.println("Reconheci um laço while");				}
-		;
-
-forg	: FOR L_PAREN ID ATTR expr SC ID OPREL (NUMBER|ID) SC var_change R_PAREN L_CURL block R_CURL
-		;
-		
-whileg	: WHILE L_PAREN ID ATTR expr R_PAREN L_CURL block R_CURL
 		;
 				
 read_cmd	: 'inputis'	L_PAREN 
@@ -182,7 +179,46 @@ decision_cmd 	:	IF
 									}
 					)?	
 				;
-							
+		
+whileg	: 	WHILE 
+			L_PAREN 
+			ID 				{ 	_exprWhile = _input.LT(-1).getText();		}
+			OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
+			(ID | NUMBER) 	{	_exprWhile += _input.LT(-1).getText();		}
+			R_PAREN 
+			L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
+								commandStack.push(currThread);
+							}
+			(cmd)+
+			R_CURL			{	commandList = commandStack.pop();	
+								WhileCommand cmd = new WhileCommand(_exprWhile, commandList);
+								commandStack.peek().add(cmd);
+							}
+		;				
+
+forg	: 	FOR 
+			L_PAREN 
+			ID 				{	_exprFor = _input.LT(-1).getText();			}
+			ATTR 			{	_exprFor += _input.LT(-1).getText();		}
+			expr 			{	_exprFor += _input.LT(-1).getText();		}
+			SC 				{	_exprFor += _input.LT(-1).getText();		}
+			ID 				{	_exprFor += _input.LT(-1).getText();		}
+			OPREL 			{	_exprFor += _input.LT(-1).getText();		}
+			(NUMBER|ID)		{	_exprFor += _input.LT(-1).getText();		} 
+			SC 				{	_exprFor += _input.LT(-1).getText();		}
+			ID 				{	_exprFor += _input.LT(-1).getText();		}
+			OP_CHANGE		{	_exprFor += _input.LT(-1).getText();		}
+			R_PAREN 
+			L_CURL			{	currThread = new ArrayList<AbstractCommand>();	
+								commandStack.push(currThread);
+							}
+			(cmd)+ 
+			R_CURL			{	commandList = commandStack.pop();	
+								ForCommand cmd = new ForCommand(_exprFor, commandList);
+								commandStack.peek().add(cmd);
+							}
+		;
+		
 attr_cmd	:  	ID 		{ 	verifyID(); 
 							_exprId = _input.LT(-1).getText();
 						} 
@@ -216,6 +252,10 @@ SC	: ';'
 	
 OP	: '+' | '-' | '*' | '/'
 	;
+	
+OP_CHANGE	:	'++'
+			|	'--'
+			;
 	
 ATTR : '='
 	 ;

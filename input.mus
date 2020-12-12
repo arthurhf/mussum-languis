@@ -13,4 +13,12 @@ programis
 		escrevis(a);
 	}
 	
+	enquantis (a > b) {
+		inputis(b);
+	}
+	
+	paris(i=0;i<3;i++){
+		escrevis(a);
+	}
+	
 cacildis;

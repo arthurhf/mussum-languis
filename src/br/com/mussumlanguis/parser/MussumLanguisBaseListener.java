@@ -11,6 +11,8 @@ package br.com.mussumlanguis.parser;
 	import br.com.mussumlanguis.ast.WriteCommand;
 	import br.com.mussumlanguis.ast.AttrCommand;
 	import br.com.mussumlanguis.ast.DecisionCommand;
+	import br.com.mussumlanguis.ast.WhileCommand;
+	import br.com.mussumlanguis.ast.ForCommand;
 	import java.util.ArrayList;
 	import java.util.Stack;
 	import java.util.logging.*; 
@@ -91,18 +93,6 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_change(MussumLanguisParser.Var_changeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVar_change(MussumLanguisParser.Var_changeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterCmd(MussumLanguisParser.CmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -110,30 +100,6 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCmd(MussumLanguisParser.CmdContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterForg(MussumLanguisParser.ForgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitForg(MussumLanguisParser.ForgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterWhileg(MussumLanguisParser.WhilegContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitWhileg(MussumLanguisParser.WhilegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -170,6 +136,30 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDecision_cmd(MussumLanguisParser.Decision_cmdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhileg(MussumLanguisParser.WhilegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhileg(MussumLanguisParser.WhilegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterForg(MussumLanguisParser.ForgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForg(MussumLanguisParser.ForgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
