@@ -19,8 +19,29 @@ public class DecisionCommand extends AbstractCommand {
 	
 	@Override
 	public String generateJavaCode() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder generatedCode = new StringBuilder();
+		
+		generatedCode.append("    if ( " + this.condition + " ) {\n");
+		for (AbstractCommand cmd: trueList) {
+			generatedCode.append("    " + cmd.generateJavaCode());
+		}
+		generatedCode.append("    }\n");
+		
+		if (falseList.size() > 0) {
+			generatedCode.append("    else {\n");
+			for (AbstractCommand cmd: falseList) {
+				generatedCode.append("    " + cmd.generateJavaCode());
+			}
+			generatedCode.append("    }\n");
+		
+		}
+		return generatedCode.toString();
+	}
+	
+	
+	@Override
+	public String toString() {
+		return String.format("DecisionCOmmand [condition=%s, trueList=%s, falseList=%s]", this.condition, this.trueList, this.falseList);
 	}
 
 }

@@ -1,7 +1,10 @@
 package br.com.mussumlanguis.ast;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
+import br.com.mussumlanguis.datastructures.MussumSymbol;
 import br.com.mussumlanguis.datastructures.MussumSymbolTable;
 
 public class MussumProgram {
@@ -11,7 +14,30 @@ public class MussumProgram {
 	private String programName;
 	
 	public void generateTarget() {
+		StringBuilder str = new StringBuilder();
+		str.append("import java.util.Scanner; \n");
+		str.append("public class MainClass{ \n");
+		str.append("  public static void main(String args[]) { \n");
+		str.append("    Scanner _key = new Scanner(System.in); \n");
 		
+		for (MussumSymbol symbol : this.symbolTable.getAllSymbols()) {
+			str.append(symbol.generateJavaCode());
+		}
+		
+		for (AbstractCommand command : this.commands) {
+			str.append(command.generateJavaCode());
+		}
+		
+		str.append("  }");
+		str.append("}");
+		
+		try {
+			FileWriter fr = new FileWriter(new File("MainClass2.java"));
+			fr.write(str.toString());
+			fr.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public MussumSymbolTable getSymbolTable() {

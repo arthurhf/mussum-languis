@@ -73,26 +73,6 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 */
 	void exitBlock(MussumLanguisParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#forg}.
-	 * @param ctx the parse tree
-	 */
-	void enterForg(MussumLanguisParser.ForgContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#forg}.
-	 * @param ctx the parse tree
-	 */
-	void exitForg(MussumLanguisParser.ForgContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#whileg}.
-	 * @param ctx the parse tree
-	 */
-	void enterWhileg(MussumLanguisParser.WhilegContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#whileg}.
-	 * @param ctx the parse tree
-	 */
-	void exitWhileg(MussumLanguisParser.WhilegContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MussumLanguisParser#var_change}.
 	 * @param ctx the parse tree
 	 */
@@ -112,6 +92,26 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCmd(MussumLanguisParser.CmdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MussumLanguisParser#forg}.
+	 * @param ctx the parse tree
+	 */
+	void enterForg(MussumLanguisParser.ForgContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MussumLanguisParser#forg}.
+	 * @param ctx the parse tree
+	 */
+	void exitForg(MussumLanguisParser.ForgContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MussumLanguisParser#whileg}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileg(MussumLanguisParser.WhilegContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MussumLanguisParser#whileg}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileg(MussumLanguisParser.WhilegContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MussumLanguisParser#read_cmd}.
 	 * @param ctx the parse tree

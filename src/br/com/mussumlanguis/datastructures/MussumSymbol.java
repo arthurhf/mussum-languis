@@ -4,6 +4,8 @@ public abstract class MussumSymbol {
 	
 	protected String name;
 	
+	public abstract String generateJavaCode();
+	
 	public MussumSymbol(String name) {
 		this.name = name;
 	}

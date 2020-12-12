@@ -12,8 +12,7 @@ public class AttrCommand extends AbstractCommand {
 	
 	@Override
 	public String generateJavaCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return String.format("    %s = %s;\n", this.id, this.expression);
 	}
 
 }

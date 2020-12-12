@@ -10,7 +10,7 @@ public class WriteCommand extends AbstractCommand {
 	
 	@Override
 	public String generateJavaCode() {
-		return null;
+		return String.format("    System.out.println(%s);\n", this.id);
 	}
 
 }

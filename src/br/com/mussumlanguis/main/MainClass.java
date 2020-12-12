@@ -24,6 +24,8 @@ public class MainClass {
 			parser.showCommands();
 			System.out.println("Programis Compiladis!! Cacildis");
 			
+			parser.generateCode();
+			
 		}
 		catch (MussumSemanticException ex) {
 			System.err.println("Semantic error - " + ex.getMessage());

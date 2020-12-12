@@ -89,9 +89,14 @@ grammar MussumLanguis;
  			System.out.println(cmd);
  		}
  	}
+ 	
+ 	public void generateCode() {
+ 		program.generateTarget();
+ 	}
 }
 
 prog	: 'programis' decl block 'cacildis;' {
+												program.setSymbolTable(symbolTable);
 												program.setCommands(commandStack.pop());
 												checkVariableUsage();
 											 }
@@ -112,12 +117,7 @@ block	:	{	currThread = new ArrayList<AbstractCommand>();
 			}
 			(cmd)+
 		;
-		
-forg	: FOR L_PAREN ID ATTR expr SC ID OPREL (NUMBER|ID) SC var_change R_PAREN L_CURL block R_CURL
-		;
-		
-whileg	: WHILE L_PAREN ID ATTR expr R_PAREN L_CURL block R_CURL
-		;
+	
 
 var_change	: ID op=('++'|'--' | '-') WS*
 			;
@@ -129,13 +129,20 @@ cmd		: read_cmd 		{	System.out.println("Reconheci um comando de leitura!");		}
  		| forg			{	System.out.println("Reconheci um laço for");				}
  		| whileg		{	System.out.println("Reconheci um laço while");				}
 		;
+
+forg	: FOR L_PAREN ID ATTR expr SC ID OPREL (NUMBER|ID) SC var_change R_PAREN L_CURL block R_CURL
+		;
 		
+whileg	: WHILE L_PAREN ID ATTR expr R_PAREN L_CURL block R_CURL
+		;
+				
 read_cmd	: 'inputis'	L_PAREN 
 						ID	{	verifyID(); 
 								_readId = _input.LT(-1).getText();
 							}
 						R_PAREN 
-						SC	{	ReadCommand cmd = new ReadCommand(_readId);	
+						SC	{	MussumVariable var = (MussumVariable) symbolTable.get(_readId);
+								ReadCommand cmd = new ReadCommand(_readId, var);	
 								commandStack.peek().add(cmd);
 							}
 			;
@@ -152,17 +159,19 @@ write_cmd	: 'escrevis' L_PAREN
 							}
 			;
 
-decision_cmd 	:	'se' 	
+decision_cmd 	:	IF	
 					L_PAREN
 					ID				{	_exprDecision = _input.LT(-1).getText();		}
-					OPREL 			{	_exprDecision = _input.LT(-1).getText();		}
-					(ID | NUMBER) 	{	_exprDecision = _input.LT(-1).getText();		}
-					R_PAREN L_CURL 	{	currThread = new ArrayList<AbstractCommand>();	
+					OPREL 			{	_exprDecision += _input.LT(-1).getText();		}
+					(ID | NUMBER) 	{	_exprDecision += _input.LT(-1).getText();		}
+					R_PAREN 
+					L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
 										commandStack.push(currThread);
 									}
 					(cmd)+ 
 					R_CURL			{	trueList = commandStack.pop();					}
-					('senãozis'	
+					( 
+					ELSE	
 					L_CURL			{	currThread = new ArrayList<AbstractCommand>();	
 										commandStack.push(currThread);
 									} 
@@ -211,6 +220,12 @@ OP	: '+' | '-' | '*' | '/'
 ATTR : '='
 	 ;
 
+IF	: 'se'
+	;
+
+ELSE 	: 'senãozis'
+		;
+		
 FOR	: 'paris' 
 	;
 

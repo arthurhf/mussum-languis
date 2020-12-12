@@ -2,23 +2,15 @@ programis
 
 	numeris a, b, h;
 	textis t1;
-	
+		
 	inputis(a);
 	inputis(b);
 	
 	se (a > b) {
 		escrevis(a);
-	}
+	} 
 	senãozis {
-		escrevis(b);
-	}
-	
-	paris(i=0;i<3;i++){
 		escrevis(a);
-	}
-	
-	enquantis(i=1){
-		inputis(h);
 	}
 	
 cacildis;

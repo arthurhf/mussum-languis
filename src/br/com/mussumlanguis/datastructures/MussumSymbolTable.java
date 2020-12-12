@@ -1,5 +1,6 @@
 package br.com.mussumlanguis.datastructures;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -24,5 +25,9 @@ public class MussumSymbolTable {
 	
 	public Set<String> keySet() {
 		return map.keySet();
+	}
+	
+	public ArrayList<MussumSymbol> getAllSymbols() {
+		return new ArrayList<MussumSymbol>(map.values());
 	}
 }

@@ -35,4 +35,11 @@ public class MussumVariable extends MussumSymbol{
 		return "MussumVariable [name=" + name + ", type=" + type + ", value=" + value + "]";
 	}
 
+	@Override
+	public String generateJavaCode() {
+		String typeString = this.type == NUMBER ? "Integer" : "String";
+		return String.format("    %s %s;\n", typeString, super.name);
+		
+	}
+
 }
