@@ -118,6 +118,17 @@ public class MussumLanguisLexer extends Lexer {
 	 			}
 			}
 	 	}
+	 	
+	 	public void verifyAssignment(){
+	 		_varName = ((TokenStream) _input).LT(-1).getText();
+	 		if(((MussumVariable) symbolTable.get(_varName)).getValue() == null){
+	 				System.out.println("Variable " + _varName + " wasn't assigned");
+	 		}
+	 	}
+	 	
+	 	public void assignValue(){
+	 		//função pra passar o valor da atribuição pra variável no hashmap
+	 	}
 
 
 	public MussumLanguisLexer(CharStream input) {

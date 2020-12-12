@@ -125,6 +125,17 @@ public class MussumLanguisParser extends Parser {
 	 			}
 			}
 	 	}
+	 	
+	 	public void verifyAssignment(){
+	 		_varName = ((TokenStream) _input).LT(-1).getText();
+	 		if(((MussumVariable) symbolTable.get(_varName)).getValue() == null){
+	 				System.out.println("Variable " + _varName + " wasn't assigned");
+	 		}
+	 	}
+	 	
+	 	public void assignValue(){
+	 		//função pra passar o valor da atribuição pra variável no hashmap
+	 	}
 
 	public MussumLanguisParser(TokenStream input) {
 		super(input);
@@ -696,7 +707,9 @@ public class MussumLanguisParser extends Parser {
 				{
 				setState(100);
 				write_cmd();
-					System.out.println("Reconheci um comando de escrita");		
+					System.out.println("Reconheci um comando de escrita");
+				 						
+				 					
 				}
 				break;
 			case ID:
@@ -818,7 +831,7 @@ public class MussumLanguisParser extends Parser {
 			match(L_PAREN);
 			setState(123);
 			match(ID);
-			 verifyID(); 
+			 verifyID(); verifyAssignment();
 			setState(125);
 			match(R_PAREN);
 			setState(126);

@@ -42,6 +42,17 @@ grammar MussumLanguis;
  			}
 		}
  	}
+ 	
+ 	public void verifyAssignment(){
+ 		_varName = ((TokenStream) _input).LT(-1).getText();
+ 		if(((MussumVariable) symbolTable.get(_varName)).getValue() == null){
+ 				System.out.println("Variable " + _varName + " wasn't assigned");
+ 		}
+ 	}
+ 	
+ 	public void assignValue(){
+ 		//função pra passar o valor da atribuição pra variável no hashmap
+ 	}
 }
 
 prog	: 'programis' decl block 'cacildis;' {
@@ -72,7 +83,9 @@ var_change	: ID op=('++'|'--' | '-') WS*
 			;
 			
 cmd		: read_cmd 	{	System.out.println("Reconheci um comando de leitura!");		} 
- 		| write_cmd	{	System.out.println("Reconheci um comando de escrita");		}
+ 		| write_cmd	{	System.out.println("Reconheci um comando de escrita");
+ 						
+ 					}
  		| attr_cmd	{	System.out.println("Reconheci um comando de atribuicao");	}
  		| forg		{	System.out.println("Reconheci um laço for");				}
  		| whileg	{	System.out.println("Reconheci um laço while");				}
@@ -81,7 +94,7 @@ cmd		: read_cmd 	{	System.out.println("Reconheci um comando de leitura!");		}
 read_cmd	: 'inputis'	L_PAREN ID { verifyID() } R_PAREN SC 
 			;
 			
-write_cmd	: 'escrevis' L_PAREN ID { verifyID(); } R_PAREN SC
+write_cmd	: 'escrevis' L_PAREN ID { verifyID(); verifyAssignment()} R_PAREN SC
 			;
 			
 attr_cmd	:  ID { verifyID(); } ATTR expr SC
