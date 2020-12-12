@@ -98,7 +98,7 @@ public class MussumLanguisParser extends Parser {
 		private MussumSymbol symbol;
 		
 		public void verifyID() {
-			String id = _input.LT(-1).getText();
+			String id = ((TokenStream) _input).LT(-1).getText();
 			
 			if (!symbolTable.exists(id)) {
 				throw new MussumSemanticException("Symbol " + id + " not declared");
@@ -106,7 +106,7 @@ public class MussumLanguisParser extends Parser {
 		}
 		
 		public void addSymbol() {
-			_varName = _input.LT(-1).getText();
+			_varName = ((TokenStream) _input).LT(-1).getText();
 			_varValue = null;
 			symbol = new MussumVariable(_varName, _type, _varValue);
 			
@@ -117,6 +117,14 @@ public class MussumLanguisParser extends Parser {
 				throw new MussumSemanticException("Symbol " + _varName + " already declared");
 			}
 		}
+		
+		public void checkVariableUsage(){
+	 		for (String i : symbolTable.keySet()) {
+	 			if(((MussumVariable) symbolTable.get(i)).getValue() == null){
+	 				System.out.println("Variable " + i + " was never used");
+	 			}
+			}
+	 	}
 
 	public MussumLanguisParser(TokenStream input) {
 		super(input);
@@ -157,6 +165,9 @@ public class MussumLanguisParser extends Parser {
 			block();
 			setState(29);
 			match(T__1);
+
+															checkVariableUsage();
+														  
 			}
 		}
 		catch (RecognitionException re) {
@@ -198,17 +209,17 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(32); 
+			setState(33); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(31);
+				setState(32);
 				var_decl();
 				}
 				}
-				setState(34); 
+				setState(35); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__2 || _la==T__3 );
@@ -259,29 +270,29 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
-			type();
 			setState(37);
+			type();
+			setState(38);
 			match(ID);
 			 addSymbol(); 
-			setState(44);
+			setState(45);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(39);
-				match(COMMA);
 				setState(40);
+				match(COMMA);
+				setState(41);
 				match(ID);
 				 addSymbol(); 
 				}
 				}
-				setState(46);
+				setState(47);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(47);
+			setState(48);
 			match(SC);
 			}
 		}
@@ -315,13 +326,13 @@ public class MussumLanguisParser extends Parser {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_type);
 		try {
-			setState(53);
+			setState(54);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__2:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(49);
+				setState(50);
 				match(T__2);
 					_type = MussumVariable.NUMBER;	
 				}
@@ -329,7 +340,7 @@ public class MussumLanguisParser extends Parser {
 			case T__3:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(51);
+				setState(52);
 				match(T__3);
 					_type = MussumVariable.TEXT;	
 				}
@@ -377,17 +388,17 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56); 
+			setState(57); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(55);
+				setState(56);
 				cmd();
 				}
 				}
-				setState(58); 
+				setState(59); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__7) | (1L << T__8) | (1L << FOR) | (1L << ID))) != 0) );
@@ -451,23 +462,23 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60);
-			match(FOR);
 			setState(61);
-			match(L_PAREN);
+			match(FOR);
 			setState(62);
-			match(ID);
+			match(L_PAREN);
 			setState(63);
-			match(ATTR);
-			setState(64);
-			expr();
-			setState(65);
-			match(SC);
-			setState(66);
 			match(ID);
+			setState(64);
+			match(ATTR);
+			setState(65);
+			expr();
+			setState(66);
+			match(SC);
 			setState(67);
-			match(OPREL);
+			match(ID);
 			setState(68);
+			match(OPREL);
+			setState(69);
 			_la = _input.LA(1);
 			if ( !(_la==ID || _la==NUMBER) ) {
 			_errHandler.recoverInline(this);
@@ -477,17 +488,17 @@ public class MussumLanguisParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(69);
-			match(SC);
 			setState(70);
-			var_change();
+			match(SC);
 			setState(71);
-			match(R_PAREN);
+			var_change();
 			setState(72);
-			match(L_CURL);
+			match(R_PAREN);
 			setState(73);
-			block();
+			match(L_CURL);
 			setState(74);
+			block();
+			setState(75);
 			match(R_CURL);
 			}
 		}
@@ -530,9 +541,9 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(76);
-			match(ID);
 			setState(77);
+			match(ID);
+			setState(78);
 			((Var_changeContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6))) != 0)) ) {
@@ -543,17 +554,17 @@ public class MussumLanguisParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(81);
+			setState(82);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==WS) {
 				{
 				{
-				setState(78);
+				setState(79);
 				match(WS);
 				}
 				}
-				setState(83);
+				setState(84);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -601,13 +612,13 @@ public class MussumLanguisParser extends Parser {
 		CmdContext _localctx = new CmdContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_cmd);
 		try {
-			setState(96);
+			setState(97);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__7:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(84);
+				setState(85);
 				read_cmd();
 					System.out.println("Reconheci um comando de leitura!");		
 				}
@@ -615,7 +626,7 @@ public class MussumLanguisParser extends Parser {
 			case T__8:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(87);
+				setState(88);
 				write_cmd();
 					System.out.println("Reconheci um comando de escrita");		
 				}
@@ -623,7 +634,7 @@ public class MussumLanguisParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(90);
+				setState(91);
 				attr_cmd();
 					System.out.println("Reconheci um comando de atribuicao");	
 				}
@@ -631,7 +642,7 @@ public class MussumLanguisParser extends Parser {
 			case FOR:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(93);
+				setState(94);
 				forg();
 					System.out.println("Reconheci um laço for");				
 				}
@@ -676,16 +687,16 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(98);
-			match(T__7);
 			setState(99);
-			match(L_PAREN);
+			match(T__7);
 			setState(100);
+			match(L_PAREN);
+			setState(101);
 			match(ID);
-			 verifyID() 
-			setState(102);
-			match(R_PAREN);
+			 verifyID(); 
 			setState(103);
+			match(R_PAREN);
+			setState(104);
 			match(SC);
 			}
 		}
@@ -725,16 +736,16 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(105);
-			match(T__8);
 			setState(106);
-			match(L_PAREN);
+			match(T__8);
 			setState(107);
+			match(L_PAREN);
+			setState(108);
 			match(ID);
 			 verifyID(); 
-			setState(109);
-			match(R_PAREN);
 			setState(110);
+			match(R_PAREN);
+			setState(111);
 			match(SC);
 			}
 		}
@@ -776,14 +787,14 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(112);
+			setState(113);
 			match(ID);
 			 verifyID(); 
-			setState(114);
-			match(ATTR);
 			setState(115);
-			expr();
+			match(ATTR);
 			setState(116);
+			expr();
+			setState(117);
 			match(SC);
 			}
 		}
@@ -830,21 +841,21 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(118);
+			setState(119);
 			expr_token();
-			setState(123);
+			setState(124);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==OP) {
 				{
 				{
-				setState(119);
-				match(OP);
 				setState(120);
+				match(OP);
+				setState(121);
 				expr_token();
 				}
 				}
-				setState(125);
+				setState(126);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -882,13 +893,13 @@ public class MussumLanguisParser extends Parser {
 		Expr_tokenContext _localctx = new Expr_tokenContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_expr_token);
 		try {
-			setState(129);
+			setState(130);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(126);
+				setState(127);
 				match(ID);
 				 verifyID(); 
 				}
@@ -896,7 +907,7 @@ public class MussumLanguisParser extends Parser {
 			case NUMBER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(128);
+				setState(129);
 				match(NUMBER);
 				}
 				break;
@@ -916,38 +927,38 @@ public class MussumLanguisParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30\u0086\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30\u0087\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\2\3\2\3\2\3\3\6\3#\n\3\r\3\16"+
-		"\3$\3\4\3\4\3\4\3\4\3\4\3\4\7\4-\n\4\f\4\16\4\60\13\4\3\4\3\4\3\5\3\5"+
-		"\3\5\3\5\5\58\n\5\3\6\6\6;\n\6\r\6\16\6<\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3"+
-		"\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\7\bR\n\b\f\b\16\bU\13\b"+
-		"\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\tc\n\t\3\n\3\n\3\n"+
-		"\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3"+
-		"\f\3\f\3\r\3\r\3\r\7\r|\n\r\f\r\16\r\177\13\r\3\16\3\16\3\16\5\16\u0084"+
-		"\n\16\3\16\2\2\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\3\2\26\27\3\2\7"+
-		"\t\2\u0082\2\34\3\2\2\2\4\"\3\2\2\2\6&\3\2\2\2\b\67\3\2\2\2\n:\3\2\2\2"+
-		"\f>\3\2\2\2\16N\3\2\2\2\20b\3\2\2\2\22d\3\2\2\2\24k\3\2\2\2\26r\3\2\2"+
-		"\2\30x\3\2\2\2\32\u0083\3\2\2\2\34\35\7\3\2\2\35\36\5\4\3\2\36\37\5\n"+
-		"\6\2\37 \7\4\2\2 \3\3\2\2\2!#\5\6\4\2\"!\3\2\2\2#$\3\2\2\2$\"\3\2\2\2"+
-		"$%\3\2\2\2%\5\3\2\2\2&\'\5\b\5\2\'(\7\26\2\2(.\b\4\1\2)*\7\24\2\2*+\7"+
-		"\26\2\2+-\b\4\1\2,)\3\2\2\2-\60\3\2\2\2.,\3\2\2\2./\3\2\2\2/\61\3\2\2"+
-		"\2\60.\3\2\2\2\61\62\7\16\2\2\62\7\3\2\2\2\63\64\7\5\2\2\648\b\5\1\2\65"+
-		"\66\7\6\2\2\668\b\5\1\2\67\63\3\2\2\2\67\65\3\2\2\28\t\3\2\2\29;\5\20"+
-		"\t\2:9\3\2\2\2;<\3\2\2\2<:\3\2\2\2<=\3\2\2\2=\13\3\2\2\2>?\7\21\2\2?@"+
-		"\7\f\2\2@A\7\26\2\2AB\7\20\2\2BC\5\30\r\2CD\7\16\2\2DE\7\26\2\2EF\7\25"+
-		"\2\2FG\t\2\2\2GH\7\16\2\2HI\5\16\b\2IJ\7\r\2\2JK\7\22\2\2KL\5\n\6\2LM"+
-		"\7\23\2\2M\r\3\2\2\2NO\7\26\2\2OS\t\3\2\2PR\7\30\2\2QP\3\2\2\2RU\3\2\2"+
-		"\2SQ\3\2\2\2ST\3\2\2\2T\17\3\2\2\2US\3\2\2\2VW\5\22\n\2WX\b\t\1\2Xc\3"+
-		"\2\2\2YZ\5\24\13\2Z[\b\t\1\2[c\3\2\2\2\\]\5\26\f\2]^\b\t\1\2^c\3\2\2\2"+
-		"_`\5\f\7\2`a\b\t\1\2ac\3\2\2\2bV\3\2\2\2bY\3\2\2\2b\\\3\2\2\2b_\3\2\2"+
-		"\2c\21\3\2\2\2de\7\n\2\2ef\7\f\2\2fg\7\26\2\2gh\b\n\1\2hi\7\r\2\2ij\7"+
-		"\16\2\2j\23\3\2\2\2kl\7\13\2\2lm\7\f\2\2mn\7\26\2\2no\b\13\1\2op\7\r\2"+
-		"\2pq\7\16\2\2q\25\3\2\2\2rs\7\26\2\2st\b\f\1\2tu\7\20\2\2uv\5\30\r\2v"+
-		"w\7\16\2\2w\27\3\2\2\2x}\5\32\16\2yz\7\17\2\2z|\5\32\16\2{y\3\2\2\2|\177"+
-		"\3\2\2\2}{\3\2\2\2}~\3\2\2\2~\31\3\2\2\2\177}\3\2\2\2\u0080\u0081\7\26"+
-		"\2\2\u0081\u0084\b\16\1\2\u0082\u0084\7\27\2\2\u0083\u0080\3\2\2\2\u0083"+
-		"\u0082\3\2\2\2\u0084\33\3\2\2\2\n$.\67<Sb}\u0083";
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\2\3\2\3\2\3\2\3\3\6\3$\n\3\r"+
+		"\3\16\3%\3\4\3\4\3\4\3\4\3\4\3\4\7\4.\n\4\f\4\16\4\61\13\4\3\4\3\4\3\5"+
+		"\3\5\3\5\3\5\5\59\n\5\3\6\6\6<\n\6\r\6\16\6=\3\7\3\7\3\7\3\7\3\7\3\7\3"+
+		"\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\7\bS\n\b\f\b\16\bV"+
+		"\13\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\td\n\t\3\n\3\n"+
+		"\3\n\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3"+
+		"\f\3\f\3\f\3\r\3\r\3\r\7\r}\n\r\f\r\16\r\u0080\13\r\3\16\3\16\3\16\5\16"+
+		"\u0085\n\16\3\16\2\2\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\3\2\26\27"+
+		"\3\2\7\t\2\u0083\2\34\3\2\2\2\4#\3\2\2\2\6\'\3\2\2\2\b8\3\2\2\2\n;\3\2"+
+		"\2\2\f?\3\2\2\2\16O\3\2\2\2\20c\3\2\2\2\22e\3\2\2\2\24l\3\2\2\2\26s\3"+
+		"\2\2\2\30y\3\2\2\2\32\u0084\3\2\2\2\34\35\7\3\2\2\35\36\5\4\3\2\36\37"+
+		"\5\n\6\2\37 \7\4\2\2 !\b\2\1\2!\3\3\2\2\2\"$\5\6\4\2#\"\3\2\2\2$%\3\2"+
+		"\2\2%#\3\2\2\2%&\3\2\2\2&\5\3\2\2\2\'(\5\b\5\2()\7\26\2\2)/\b\4\1\2*+"+
+		"\7\24\2\2+,\7\26\2\2,.\b\4\1\2-*\3\2\2\2.\61\3\2\2\2/-\3\2\2\2/\60\3\2"+
+		"\2\2\60\62\3\2\2\2\61/\3\2\2\2\62\63\7\16\2\2\63\7\3\2\2\2\64\65\7\5\2"+
+		"\2\659\b\5\1\2\66\67\7\6\2\2\679\b\5\1\28\64\3\2\2\28\66\3\2\2\29\t\3"+
+		"\2\2\2:<\5\20\t\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>\13\3\2\2\2"+
+		"?@\7\21\2\2@A\7\f\2\2AB\7\26\2\2BC\7\20\2\2CD\5\30\r\2DE\7\16\2\2EF\7"+
+		"\26\2\2FG\7\25\2\2GH\t\2\2\2HI\7\16\2\2IJ\5\16\b\2JK\7\r\2\2KL\7\22\2"+
+		"\2LM\5\n\6\2MN\7\23\2\2N\r\3\2\2\2OP\7\26\2\2PT\t\3\2\2QS\7\30\2\2RQ\3"+
+		"\2\2\2SV\3\2\2\2TR\3\2\2\2TU\3\2\2\2U\17\3\2\2\2VT\3\2\2\2WX\5\22\n\2"+
+		"XY\b\t\1\2Yd\3\2\2\2Z[\5\24\13\2[\\\b\t\1\2\\d\3\2\2\2]^\5\26\f\2^_\b"+
+		"\t\1\2_d\3\2\2\2`a\5\f\7\2ab\b\t\1\2bd\3\2\2\2cW\3\2\2\2cZ\3\2\2\2c]\3"+
+		"\2\2\2c`\3\2\2\2d\21\3\2\2\2ef\7\n\2\2fg\7\f\2\2gh\7\26\2\2hi\b\n\1\2"+
+		"ij\7\r\2\2jk\7\16\2\2k\23\3\2\2\2lm\7\13\2\2mn\7\f\2\2no\7\26\2\2op\b"+
+		"\13\1\2pq\7\r\2\2qr\7\16\2\2r\25\3\2\2\2st\7\26\2\2tu\b\f\1\2uv\7\20\2"+
+		"\2vw\5\30\r\2wx\7\16\2\2x\27\3\2\2\2y~\5\32\16\2z{\7\17\2\2{}\5\32\16"+
+		"\2|z\3\2\2\2}\u0080\3\2\2\2~|\3\2\2\2~\177\3\2\2\2\177\31\3\2\2\2\u0080"+
+		"~\3\2\2\2\u0081\u0082\7\26\2\2\u0082\u0085\b\16\1\2\u0083\u0085\7\27\2"+
+		"\2\u0084\u0081\3\2\2\2\u0084\u0083\3\2\2\2\u0085\33\3\2\2\2\n%/8=Tc~\u0084";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

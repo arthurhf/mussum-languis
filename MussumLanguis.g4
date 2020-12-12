@@ -15,7 +15,7 @@ grammar MussumLanguis;
 	private MussumSymbol symbol;
 	
 	public void verifyID() {
-		String id = _input.LT(-1).getText();
+		String id = ((TokenStream) _input).LT(-1).getText();
 		
 		if (!symbolTable.exists(id)) {
 			throw new MussumSemanticException("Symbol " + id + " not declared");
@@ -23,7 +23,7 @@ grammar MussumLanguis;
 	}
 	
 	public void addSymbol() {
-		_varName = _input.LT(-1).getText();
+		_varName = ((TokenStream) _input).LT(-1).getText();
 		_varValue = null;
 		symbol = new MussumVariable(_varName, _type, _varValue);
 		
@@ -34,9 +34,19 @@ grammar MussumLanguis;
 			throw new MussumSemanticException("Symbol " + _varName + " already declared");
 		}
 	}
+	
+	public void checkVariableUsage(){
+ 		for (String i : symbolTable.keySet()) {
+ 			if(((MussumVariable) symbolTable.get(i)).getValue() == null){
+ 				System.out.println("Variable " + i + " was never used");
+ 			}
+		}
+ 	}
 }
 
-prog	: 'programis' decl block 'cacildis;' 
+prog	: 'programis' decl block 'cacildis;' {
+												checkVariableUsage();
+											  }
 		;
 		
 decl	: (var_decl)+
