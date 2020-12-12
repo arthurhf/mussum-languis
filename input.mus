@@ -1,16 +1,8 @@
 programis
 
-	numeris a, b, h;
-	textis t1;
-		
-	inputis(a);
-	inputis(b);
-	
-	se (a > b) {
-		escrevis(a);
-	} 
-	senãozis {
-		escrevis(a);
-	}
+	numeris a;
+
+	a=1.1;
+
 	
 cacildis;

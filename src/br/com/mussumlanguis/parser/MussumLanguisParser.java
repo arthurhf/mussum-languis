@@ -123,6 +123,9 @@ public class MussumLanguisParser extends Parser {
 		private ArrayList<AbstractCommand> trueList;
 		private ArrayList<AbstractCommand> falseList;
 		
+		private String _attrVariable;
+		private String _attrValue;
+		
 		public void verifyID() {
 			String id = ((TokenStream) _input).LT(-1).getText();
 			
@@ -151,7 +154,7 @@ public class MussumLanguisParser extends Parser {
 	 				Logger logger  = Logger.getLogger(MussumLanguisParser.class.getName()); 
 	  
 	        		// Set Logger level() 
-	        		logger.setLevel(Level.FINEST);
+	        		logger.setLevel(Level.WARNING);
 	  
 	        		// Call warning method 
 	        		logger.warning("Variable " + i + " was never used"); 
@@ -168,6 +171,8 @@ public class MussumLanguisParser extends Parser {
 	 	
 	 	public void assignValue(){
 	 		//função pra passar o valor da atribuição pra variável no hashmap
+	 		((MussumVariable) symbolTable.get(_attrVariable)).setValue(_attrValue);
+	 		System.out.println("Simbolo atualizado: " + symbolTable.get(_attrVariable) ); 
 	 	}
 
 	 	public void showCommands() {
@@ -1088,6 +1093,7 @@ public class MussumLanguisParser extends Parser {
 			match(ID);
 			 	verifyID(); 
 										_exprId = _input.LT(-1).getText();
+										_attrVariable = _input.LT(-1).getText();
 									
 			setState(169);
 			match(ATTR);
@@ -1207,6 +1213,7 @@ public class MussumLanguisParser extends Parser {
 				match(ID);
 					verifyID();
 											_exprContent += _input.LT(-1).getText();
+											_attrValue = _input.LT(-1).getText();
 										
 				}
 				break;
@@ -1215,7 +1222,10 @@ public class MussumLanguisParser extends Parser {
 				{
 				setState(186);
 				match(NUMBER);
-					_exprContent += _input.LT(-1).getText();	
+					_exprContent += _input.LT(-1).getText();
+											_attrValue = _input.LT(-1).getText();
+											assignValue();
+										
 				}
 				break;
 			default:

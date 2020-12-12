@@ -114,6 +114,9 @@ public class MussumLanguisLexer extends Lexer {
 		private ArrayList<AbstractCommand> trueList;
 		private ArrayList<AbstractCommand> falseList;
 		
+		private String _attrVariable;
+		private String _attrValue;
+		
 		public void verifyID() {
 			String id = ((TokenStream) _input).LT(-1).getText();
 			
@@ -142,7 +145,7 @@ public class MussumLanguisLexer extends Lexer {
 	 				Logger logger  = Logger.getLogger(MussumLanguisParser.class.getName()); 
 	  
 	        		// Set Logger level() 
-	        		logger.setLevel(Level.FINEST);
+	        		logger.setLevel(Level.WARNING);
 	  
 	        		// Call warning method 
 	        		logger.warning("Variable " + i + " was never used"); 
@@ -159,6 +162,8 @@ public class MussumLanguisLexer extends Lexer {
 	 	
 	 	public void assignValue(){
 	 		//função pra passar o valor da atribuição pra variável no hashmap
+	 		((MussumVariable) symbolTable.get(_attrVariable)).setValue(_attrValue);
+	 		System.out.println("Simbolo atualizado: " + symbolTable.get(_attrVariable) ); 
 	 	}
 
 	 	public void showCommands() {

@@ -37,6 +37,9 @@ grammar MussumLanguis;
 	private ArrayList<AbstractCommand> trueList;
 	private ArrayList<AbstractCommand> falseList;
 	
+	private String _attrVariable;
+	private String _attrValue;
+	
 	public void verifyID() {
 		String id = ((TokenStream) _input).LT(-1).getText();
 		
@@ -82,6 +85,8 @@ grammar MussumLanguis;
  	
  	public void assignValue(){
  		//função pra passar o valor da atribuição pra variável no hashmap
+ 		((MussumVariable) symbolTable.get(_attrVariable)).setValue(_attrValue);
+ 		System.out.println("Simbolo atualizado: " + symbolTable.get(_attrVariable) ); 
  	}
 
  	public void showCommands() {
@@ -185,6 +190,7 @@ decision_cmd 	:	IF
 							
 attr_cmd	:  	ID 		{ 	verifyID(); 
 							_exprId = _input.LT(-1).getText();
+							_attrVariable = _input.LT(-1).getText();
 						} 
 				ATTR 	{ 	_exprContent = "";	}
 				expr 
@@ -200,8 +206,12 @@ expr		:  	expr_token (
 			
 expr_token	: ID 		{	verifyID();
 							_exprContent += _input.LT(-1).getText();
+							_attrValue = _input.LT(-1).getText();
 						}  
-			| NUMBER 	{	_exprContent += _input.LT(-1).getText();	}
+			| NUMBER 	{	_exprContent += _input.LT(-1).getText();
+							_attrValue = _input.LT(-1).getText();
+							assignValue();
+						}
 			;
 			
 	
