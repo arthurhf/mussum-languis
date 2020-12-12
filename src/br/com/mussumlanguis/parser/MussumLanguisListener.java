@@ -5,6 +5,14 @@ package br.com.mussumlanguis.parser;
 	import br.com.mussumlanguis.datastructures.MussumSymbolTable;
 	import br.com.mussumlanguis.datastructures.MussumVariable;
 	import br.com.mussumlanguis.exceptions.MussumSemanticException;
+	import br.com.mussumlanguis.ast.MussumProgram;
+	import br.com.mussumlanguis.ast.AbstractCommand;
+	import br.com.mussumlanguis.ast.ReadCommand;
+	import br.com.mussumlanguis.ast.WriteCommand;
+	import br.com.mussumlanguis.ast.AttrCommand;
+	import br.com.mussumlanguis.ast.DecisionCommand;
+	import java.util.ArrayList;
+	import java.util.Stack;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -123,6 +131,16 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWrite_cmd(MussumLanguisParser.Write_cmdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MussumLanguisParser#decision_cmd}.
+	 * @param ctx the parse tree
+	 */
+	void enterDecision_cmd(MussumLanguisParser.Decision_cmdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MussumLanguisParser#decision_cmd}.
+	 * @param ctx the parse tree
+	 */
+	void exitDecision_cmd(MussumLanguisParser.Decision_cmdContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MussumLanguisParser#attr_cmd}.
 	 * @param ctx the parse tree

@@ -5,6 +5,14 @@ package br.com.mussumlanguis.parser;
 	import br.com.mussumlanguis.datastructures.MussumSymbolTable;
 	import br.com.mussumlanguis.datastructures.MussumVariable;
 	import br.com.mussumlanguis.exceptions.MussumSemanticException;
+	import br.com.mussumlanguis.ast.MussumProgram;
+	import br.com.mussumlanguis.ast.AbstractCommand;
+	import br.com.mussumlanguis.ast.ReadCommand;
+	import br.com.mussumlanguis.ast.WriteCommand;
+	import br.com.mussumlanguis.ast.AttrCommand;
+	import br.com.mussumlanguis.ast.DecisionCommand;
+	import java.util.ArrayList;
+	import java.util.Stack;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -149,6 +157,18 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWrite_cmd(MussumLanguisParser.Write_cmdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDecision_cmd(MussumLanguisParser.Decision_cmdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDecision_cmd(MussumLanguisParser.Decision_cmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
