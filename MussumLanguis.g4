@@ -64,6 +64,10 @@ block	: (cmd)+
 		
 forg	: FOR L_PAREN ID ATTR expr SC ID OPREL (NUMBER|ID) SC var_change R_PAREN L_CURL block R_CURL
 		;
+		
+whileg	: WHILE L_PAREN ID ATTR expr R_PAREN L_CURL block R_CURL
+		;
+
 var_change	: ID op=('++'|'--' | '-') WS*
 			;
 			
@@ -71,6 +75,7 @@ cmd		: read_cmd 	{	System.out.println("Reconheci um comando de leitura!");		}
  		| write_cmd	{	System.out.println("Reconheci um comando de escrita");		}
  		| attr_cmd	{	System.out.println("Reconheci um comando de atribuicao");	}
  		| forg		{	System.out.println("Reconheci um laço for");				}
+ 		| whileg	{	System.out.println("Reconheci um laço while");				}
 		;
 		
 read_cmd	: 'inputis'	L_PAREN ID { verifyID() } R_PAREN SC 
@@ -107,6 +112,9 @@ ATTR : '='
 
 FOR	: 'paris' 
 	;
+
+WHILE : 'enquantis'
+	  ;
 
 L_CURL	: '{' 
 		;

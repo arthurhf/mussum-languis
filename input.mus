@@ -1,6 +1,6 @@
 programis
 
-	numeris a, b;
+	numeris a, b, h;
 	textis t1;
 	
 	
@@ -8,6 +8,10 @@ programis
 	
 	paris(i=0;i<3;i++){
 		escrevis(a);
+	}
+	
+	enquantis(i=1){
+		inputis(h);
 	}
 	
 cacildis;
