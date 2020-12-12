@@ -13,6 +13,7 @@ package br.com.mussumlanguis.parser;
 	import br.com.mussumlanguis.ast.DecisionCommand;
 	import java.util.ArrayList;
 	import java.util.Stack;
+	import java.util.logging.*; 
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -137,7 +138,14 @@ public class MussumLanguisLexer extends Lexer {
 		public void checkVariableUsage(){
 	 		for (String i : symbolTable.keySet()) {
 	 			if(((MussumVariable) symbolTable.get(i)).getValue() == null){
-	 				System.out.println("Variable " + i + " was never used");
+	 				
+	 				Logger logger  = Logger.getLogger(MussumLanguisParser.class.getName()); 
+	  
+	        		// Set Logger level() 
+	        		logger.setLevel(Level.FINEST);
+	  
+	        		// Call warning method 
+	        		logger.warning("Variable " + i + " was never used"); 
 	 			}
 			}
 	 	}

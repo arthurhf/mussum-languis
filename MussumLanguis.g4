@@ -13,6 +13,7 @@ grammar MussumLanguis;
 	import br.com.mussumlanguis.ast.DecisionCommand;
 	import java.util.ArrayList;
 	import java.util.Stack;
+	import java.util.logging.*; 
 }
 
 @members {
@@ -60,7 +61,14 @@ grammar MussumLanguis;
 	public void checkVariableUsage(){
  		for (String i : symbolTable.keySet()) {
  			if(((MussumVariable) symbolTable.get(i)).getValue() == null){
- 				System.out.println("Variable " + i + " was never used");
+ 				
+ 				Logger logger  = Logger.getLogger(MussumLanguisParser.class.getName()); 
+  
+        		// Set Logger level() 
+        		logger.setLevel(Level.WARNING);
+  
+        		// Call warning method 
+        		logger.warning("Variable " + i + " was never used"); 
  			}
 		}
  	}
