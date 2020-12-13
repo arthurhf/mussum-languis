@@ -1,8 +1,9 @@
 programis
 
-	numeris a;
+	numeris a, b;
 
 	a=1.1;
-
+	a = 2;
+	b=6;
 	
 cacildis;
