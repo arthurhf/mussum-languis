@@ -141,7 +141,8 @@ cmd		: read_cmd 		{	System.out.println("Reconheci um comando de leitura!");		}
 		;
 				
 read_cmd	: 'inputis'	L_PAREN 
-						ID	{	verifyID(); 
+						ID	{	verifyID();
+								
 								_readId = _input.LT(-1).getText();
 							}
 						R_PAREN 
@@ -165,9 +166,12 @@ write_cmd	: 'escrevis' L_PAREN
 
 decision_cmd 	:	IF	
 					L_PAREN
-					ID				{	_exprDecision = _input.LT(-1).getText();		}
+					ID				{	_exprDecision = _input.LT(-1).getText();
+										verifyAssignment();
+									}
 					OPREL 			{	_exprDecision += _input.LT(-1).getText();		}
-					(ID | NUMBER) 	{	_exprDecision += _input.LT(-1).getText();		}
+					(ID {verifyAssignment();} | NUMBER) 	
+					{	_exprDecision += _input.LT(-1).getText();		}
 					R_PAREN 
 					L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
 										commandStack.push(currThread);
@@ -189,9 +193,12 @@ decision_cmd 	:	IF
 		
 whileg	: 	WHILE 
 			L_PAREN 
-			ID 				{ 	_exprWhile = _input.LT(-1).getText();		}
+			ID 				{ 	_exprWhile = _input.LT(-1).getText();
+								verifyAssignment();
+							}
 			OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
-			(ID | NUMBER) 	{	_exprWhile += _input.LT(-1).getText();		}
+			(ID {verifyAssignment();} | NUMBER) 	
+			{	_exprWhile += _input.LT(-1).getText();		}
 			R_PAREN 
 			L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
 								commandStack.push(currThread);
@@ -205,15 +212,17 @@ whileg	: 	WHILE
 
 forg	: 	FOR 
 			L_PAREN 
-			ID 				{	_exprFor = _input.LT(-1).getText();			}
-			ATTR 			{	_exprFor += _input.LT(-1).getText();		}
-			expr 			{	_exprFor += _input.LT(-1).getText();		}
-			SC 				{	_exprFor += _input.LT(-1).getText();		}
-			ID 				{	_exprFor += _input.LT(-1).getText();		}
+			attr_cmd
+			ID 				{	_exprFor += _input.LT(-1).getText();
+								verifyAssignment();
+							}
 			OPREL 			{	_exprFor += _input.LT(-1).getText();		}
-			(NUMBER|ID)		{	_exprFor += _input.LT(-1).getText();		} 
+			(NUMBER|ID {verifyAssignment();})
+			{	_exprFor += _input.LT(-1).getText();		} 
 			SC 				{	_exprFor += _input.LT(-1).getText();		}
-			ID 				{	_exprFor += _input.LT(-1).getText();		}
+			ID 				{	_exprFor += _input.LT(-1).getText();
+								verifyAssignment();
+							}
 			OP_CHANGE		{	_exprFor += _input.LT(-1).getText();		}
 			R_PAREN 
 			L_CURL			{	currThread = new ArrayList<AbstractCommand>();	
@@ -229,6 +238,7 @@ forg	: 	FOR
 attr_cmd	:  	ID 		{ 	verifyID(); 
 							_exprId = _input.LT(-1).getText();
 							_attrVariable = _input.LT(-1).getText();
+							
 						} 
 				ATTR 	{ 	_exprContent = "";	}
 				expr 
