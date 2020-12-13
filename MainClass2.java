@@ -11,16 +11,21 @@ public class MainClass{
     b = 2;
     q = 2.2;
     if ( a>b ) {
+        if ( a<c ) {
         System.out.println(a);
+    }
     }
     else {
         System.out.println(a);
     }
     while ( a>b ) {
+        while ( a<b ) {
         b = _key.nextInt();
     }
-    c = 0;
-    for ( nullc<3;c++ ) {
+    }
+    for ( c = 0;c<3;c++ ) {
+        for ( a = 0;a>5;a-- ) {
         System.out.println(a);
+    }
     }
   }}

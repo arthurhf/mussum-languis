@@ -104,7 +104,7 @@ public class MussumLanguisLexer extends Lexer {
 		private MussumProgram program = new MussumProgram();
 		private ArrayList<AbstractCommand> currThread = new ArrayList<AbstractCommand>();
 		private Stack<ArrayList<AbstractCommand>> commandStack = new Stack<ArrayList<AbstractCommand>>();
-		
+		private Stack<String> conditionStack = new Stack<String>();
 		private String _readId;
 		
 		private String _writeId;

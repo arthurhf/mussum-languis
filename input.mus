@@ -9,18 +9,25 @@ programis
 	q = 2.2;
 	
 	se (a > b) {
-		escrevis(a);
+		se (a < c) {
+			escrevis(a);
+		}
+
 	} 
 	senãozis {
 		escrevis(a);
 	}
 	
 	enquantis (a > b) {
-		inputis(b);
+		enquantis (a < b) {
+			inputis(b);
+		}
 	}
 	
 	paris(c=0;c<3;c++){
-		escrevis(a);
+		paris (a=0; a>5; a--) {
+			escrevis(a);
+		}
 	}
 	
 cacildis;

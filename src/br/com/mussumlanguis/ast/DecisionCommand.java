@@ -27,7 +27,7 @@ public class DecisionCommand extends AbstractCommand {
 		}
 		generatedCode.append("    }\n");
 		
-		if (falseList.size() > 0) {
+		if (falseList != null && falseList.size() > 0) {
 			generatedCode.append("    else {\n");
 			for (AbstractCommand cmd: falseList) {
 				generatedCode.append("    " + cmd.generateJavaCode());

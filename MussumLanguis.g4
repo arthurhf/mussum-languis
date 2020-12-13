@@ -27,7 +27,7 @@ grammar MussumLanguis;
 	private MussumProgram program = new MussumProgram();
 	private ArrayList<AbstractCommand> currThread = new ArrayList<AbstractCommand>();
 	private Stack<ArrayList<AbstractCommand>> commandStack = new Stack<ArrayList<AbstractCommand>>();
-	
+	private Stack<String> conditionStack = new Stack<String>();
 	private String _readId;
 	
 	private String _writeId;
@@ -170,11 +170,13 @@ decision_cmd 	:	IF
 										verifyAssignment();
 									}
 					OPREL 			{	_exprDecision += _input.LT(-1).getText();		}
-					(ID {verifyAssignment();} | NUMBER) 	
-					{	_exprDecision += _input.LT(-1).getText();		}
+					(
+					ID 				{	verifyAssignment();								} 
+					| NUMBER ) 		{	_exprDecision += _input.LT(-1).getText();		}
 					R_PAREN 
 					L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
 										commandStack.push(currThread);
+										conditionStack.push(_exprDecision);
 									}
 					(cmd)+ 
 					R_CURL			{	trueList = commandStack.pop();					}
@@ -184,11 +186,10 @@ decision_cmd 	:	IF
 										commandStack.push(currThread);
 									} 
 					(cmd)+ 
-					R_CURL			{	falseList = commandStack.pop();
-										DecisionCommand cmd = new DecisionCommand(_exprDecision, trueList, falseList);
+					R_CURL			{	falseList = commandStack.pop(); 				}
+					)?				{	DecisionCommand cmd = new DecisionCommand(conditionStack.pop(), trueList, falseList);
 										commandStack.peek().add(cmd);
 									}
-					)?	
 				;
 		
 whileg	: 	WHILE 
@@ -197,28 +198,45 @@ whileg	: 	WHILE
 								verifyAssignment();
 							}
 			OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
-			(ID {verifyAssignment();} | NUMBER) 	
-			{	_exprWhile += _input.LT(-1).getText();		}
+			(
+			ID 				{	verifyAssignment();							} 
+			| NUMBER
+			) 				{	_exprWhile += _input.LT(-1).getText();		}
 			R_PAREN 
 			L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
 								commandStack.push(currThread);
+								conditionStack.push(_exprWhile);
 							}
 			(cmd)+
-			R_CURL			{	commandList = commandStack.pop();	
-								WhileCommand cmd = new WhileCommand(_exprWhile, commandList);
+			R_CURL			{	
+								WhileCommand cmd = new WhileCommand(conditionStack.pop(), commandStack.pop());
 								commandStack.peek().add(cmd);
 							}
 		;				
 
 forg	: 	FOR 
 			L_PAREN 
-			attr_cmd
-			ID 				{	_exprFor += _input.LT(-1).getText();
+			ID 				{ 	verifyID(); 
+								_exprId = _input.LT(-1).getText();
+								_attrVariable = _input.LT(-1).getText();
+							
+							} 
+			ATTR 			{ 	_exprContent = "";	}
+			expr 
+			SC				{	_exprFor = _exprId + " = " + _exprContent + ";";	
+							}	
+			ID 				{	
+								if (! _exprId.equals(_input.LT(-1).getText())) {
+									throw new MussumSemanticException("Esperavis a variávis " + _exprId + " no paris");
+								}
+								
+								_exprFor += _input.LT(-1).getText();
 								verifyAssignment();
 							}
 			OPREL 			{	_exprFor += _input.LT(-1).getText();		}
-			(NUMBER|ID {verifyAssignment();})
-			{	_exprFor += _input.LT(-1).getText();		} 
+			(NUMBER
+			|ID 			{	verifyAssignment();							}
+			)				{	_exprFor += _input.LT(-1).getText();		} 
 			SC 				{	_exprFor += _input.LT(-1).getText();		}
 			ID 				{	_exprFor += _input.LT(-1).getText();
 								verifyAssignment();
@@ -227,10 +245,11 @@ forg	: 	FOR
 			R_PAREN 
 			L_CURL			{	currThread = new ArrayList<AbstractCommand>();	
 								commandStack.push(currThread);
+								conditionStack.push(_exprFor);
 							}
 			(cmd)+ 
-			R_CURL			{	commandList = commandStack.pop();	
-								ForCommand cmd = new ForCommand(_exprFor, commandList);
+			R_CURL			{
+								ForCommand cmd = new ForCommand(conditionStack.pop(), commandStack.pop());
 								commandStack.peek().add(cmd);
 							}
 		;
