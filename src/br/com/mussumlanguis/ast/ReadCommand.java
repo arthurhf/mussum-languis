@@ -14,8 +14,24 @@ public class ReadCommand extends AbstractCommand {
 
 	@Override
 	public String generateJavaCode() {
-		String readOperation = this.var.getType() == MussumVariable.NUMBER ? "nextDouble()" : "nextLine()";
-		return String.format("    %s = _key.%s;\n", this.id, readOperation);
+		return String.format("    %s = %s;\n", this.id, getOperationCode());
+	}
+	
+	private String getOperationCode() {
+		switch (this.var.getType()) {
+			case MussumVariable.INT:
+				return "_key.nextInt()";
+				
+			case MussumVariable.DOUBLE:
+				return "_key.nextDouble()";
+			
+			case MussumVariable.TEXT:
+				return "_key.nextLine()";
+			
+			default:
+				throw new RuntimeException("tipis não definidis");
+				
+		}
 	}
 
 }

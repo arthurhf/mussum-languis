@@ -27,7 +27,7 @@ public class ForCommand extends AbstractCommand {
 	
 	@Override
 	public String toString() {
-		return String.format("FOrCommand [condition=%s, commandList=%s]", this.condition, this.commandList);
+		return String.format("ForCommand [condition=%s, commandList=%s]", this.condition, this.commandList);
 	}
 
 

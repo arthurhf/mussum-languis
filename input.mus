@@ -1,8 +1,10 @@
 programis
 
-	numeris a, b, h;
+	inteiris a, b, h;
 	textis t1;
-		
+	quebradis q;
+	booleanis bool;
+	
 	inputis(a);
 	inputis(b);
 	

@@ -115,8 +115,10 @@ decl	: (var_decl)+
 var_decl	: type ID { addSymbol(); } (COMMA ID { addSymbol(); } )* SC
 			;
 
-type	: 'numeris'	{	_type = MussumVariable.NUMBER;	} 
-		| 'textis' 	{	_type = MussumVariable.TEXT;	}
+type	:	INT		{	_type = MussumVariable.INT;		} 
+		|	STRING 	{	_type = MussumVariable.TEXT;	}
+		|	DOUBLE	{	_type = MussumVariable.DOUBLE;	}
+		|	BOOLEAN	{	_type = MussumVariable.BOOLEAN;	}
 		;
 		
 block	:	{	currThread = new ArrayList<AbstractCommand>();
@@ -240,7 +242,15 @@ expr_token	: ID 		{	verifyID();
 			| NUMBER 	{	_exprContent += _input.LT(-1).getText();	}
 			;
 			
+
+INT	: 'inteiris' ;
 	
+DOUBLE : 'quebradis' ;
+
+STRING : 'textis' | 'stringuis';
+
+BOOLEAN : 'booleanis';
+
 L_PAREN	: '('
 		;
 	
