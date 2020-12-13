@@ -165,6 +165,18 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDog(MussumLanguisParser.DogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDog(MussumLanguisParser.DogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterWhileg(MussumLanguisParser.WhilegContext ctx) { }
 	/**
 	 * {@inheritDoc}

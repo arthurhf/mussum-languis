@@ -1,16 +1,8 @@
-funcionis oi {
-	inteiris g;
-	
-	g = 4;
-	escrevis(g);
-}
-
 programis
 
 	inteiris a, b, c;
 	quebradis q;
-	booleanis bool;
-	
+	booleanis bool;	
 	a =1;
 	b=2;
 	#COMENTIS
@@ -38,5 +30,9 @@ programis
 			escrevis(a);
 		}
 	}
+	
+	facis{
+		escrevis(a);
+	}enquantis(c=1) 
 	
 cacildis;

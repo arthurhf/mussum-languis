@@ -141,6 +141,7 @@ cmd		: read_cmd 		{	System.out.println("Reconheci um comando de leitura!");		}
  		| attr_cmd		{	System.out.println("Reconheci um comando de atribuicao");	}
  		| forg			{	System.out.println("Reconheci um laço for");				}
  		| whileg		{	System.out.println("Reconheci um laço while");				}
+ 		| dog			{	System.out.println("Reconheci um laço do-while");			}
  		| comment 		{	System.out.println("Reconheci um comentario");				}
 		;
 
@@ -200,6 +201,29 @@ decision_cmd 	:	IF
 										commandStack.peek().add(cmd);
 									}
 				;
+				
+dog	: 	DO		
+		L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
+								commandStack.push(currThread);
+								conditionStack.push(_exprWhile);
+						}
+		(cmd)+
+		R_CURL			{	
+								WhileCommand cmd = new WhileCommand(conditionStack.pop(), commandStack.pop());
+								commandStack.peek().add(cmd);
+						}
+		WHILE
+		L_PAREN 
+		ID 				{ 	_exprWhile = _input.LT(-1).getText();
+								verifyAssignment();
+						}
+		OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
+		(
+		ID 				{	verifyAssignment();							} 
+		| NUMBER
+		) 				{	_exprWhile += _input.LT(-1).getText();		}
+		R_PAREN
+		;
 		
 whileg	: 	WHILE 
 			L_PAREN 
@@ -323,6 +347,9 @@ IF	: 'se'
 
 ELSE 	: 'senãozis'
 		;
+
+DO	:	'facis'
+	;
 		
 FOR	: 'paris' 
 	;

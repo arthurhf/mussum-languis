@@ -7,7 +7,6 @@ public class MainClass{
     int b;
     int c;
     boolean bool;
-    int g;
     a = 1;
     b = 2;
     if ( a>b ) {
@@ -27,5 +26,8 @@ public class MainClass{
         for ( a = 0;a>5;a-- ) {
         System.out.println(a);
     }
+    }
+    while ( a<b ) {
+        System.out.println(a);
     }
   }}

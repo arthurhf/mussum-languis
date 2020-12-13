@@ -135,6 +135,16 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 */
 	void exitDecision_cmd(MussumLanguisParser.Decision_cmdContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MussumLanguisParser#dog}.
+	 * @param ctx the parse tree
+	 */
+	void enterDog(MussumLanguisParser.DogContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MussumLanguisParser#dog}.
+	 * @param ctx the parse tree
+	 */
+	void exitDog(MussumLanguisParser.DogContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MussumLanguisParser#whileg}.
 	 * @param ctx the parse tree
 	 */
