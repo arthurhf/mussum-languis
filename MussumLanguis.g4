@@ -107,12 +107,15 @@ grammar MussumLanguis;
  	}
 }
 
-prog	: 'programis' decl block 'cacildis;' {
+prog	: function* 'programis' decl block 'cacildis;' {
 												program.setSymbolTable(symbolTable);
 												program.setCommands(commandStack.pop());
 												checkVariableUsage();
 											 }
 		;
+		
+function	:	'funcionis' ID L_CURL decl block R_CURL {System.out.println("Reconheci uma função");}
+			;
 		
 decl	: (var_decl)+
 		;

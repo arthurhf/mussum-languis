@@ -45,6 +45,18 @@ public class MussumLanguisBaseListener implements MussumLanguisListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunction(MussumLanguisParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction(MussumLanguisParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDecl(MussumLanguisParser.DeclContext ctx) { }
 	/**
 	 * {@inheritDoc}

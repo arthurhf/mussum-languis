@@ -7,6 +7,7 @@ public class MainClass{
     int b;
     int c;
     boolean bool;
+    int g;
     a = 1;
     b = 2;
     if ( a>b ) {
