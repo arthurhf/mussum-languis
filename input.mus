@@ -6,7 +6,9 @@ programis
 	
 	a =1;
 	b=2;
+	#COMENTIS
 	q = 2.2;
+	#DESCOMENTIS
 	
 	se (a > b) {
 		se (a < c) {

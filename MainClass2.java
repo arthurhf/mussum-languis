@@ -9,7 +9,6 @@ public class MainClass{
     boolean bool;
     a = 1;
     b = 2;
-    q = 2.2;
     if ( a>b ) {
         if ( a<c ) {
         System.out.println(a);

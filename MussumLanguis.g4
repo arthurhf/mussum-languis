@@ -138,8 +138,14 @@ cmd		: read_cmd 		{	System.out.println("Reconheci um comando de leitura!");		}
  		| attr_cmd		{	System.out.println("Reconheci um comando de atribuicao");	}
  		| forg			{	System.out.println("Reconheci um laço for");				}
  		| whileg		{	System.out.println("Reconheci um laço while");				}
+ 		| comment 		{	System.out.println("Reconheci um comentario");				}
 		;
-				
+
+comment		: 	'#COMENTIS' 
+				.
+				'#DESCOMENTIS'
+			;
+						
 read_cmd	: 'inputis'	L_PAREN 
 						ID	{	verifyID();
 								
