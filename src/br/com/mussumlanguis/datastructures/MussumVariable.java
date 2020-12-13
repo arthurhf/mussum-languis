@@ -2,8 +2,10 @@ package br.com.mussumlanguis.datastructures;
 
 public class MussumVariable extends MussumSymbol{
 	
-	public static final int NUMBER = 0;
+	public static final int INT = 0;
 	public static final int TEXT = 1;
+	public static final int DOUBLE = 2;
+	public static final int BOOLEAN = 3;
 	
 	private int type;
 	private String value;
@@ -37,9 +39,27 @@ public class MussumVariable extends MussumSymbol{
 
 	@Override
 	public String generateJavaCode() {
-		String typeString = this.type == NUMBER ? "Integer" : "String";
-		return String.format("    %s %s;\n", typeString, super.name);
-		
+		return String.format("    %s %s;\n", generateTypeCode(), super.name);	
 	}
+	
+	private String generateTypeCode() {
+		switch (this.type) {
+			case INT: 
+				return "int";
+				
+			case TEXT:	
+				return "String";
+			
+			case DOUBLE: 
+				return "double";
+			
+			case BOOLEAN: 
+				return "boolean";
+			
+			default: 
+				throw new RuntimeException("tipis não definidis");
+		}
+	}
+	
 
 }

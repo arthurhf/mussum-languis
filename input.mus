@@ -5,5 +5,27 @@ programis
 	a=1.1;
 	a = 2;
 	b=6;
+	inteiris a, b, h;
+	textis t1;
+	quebradis q;
+	booleanis bool;
+	
+	inputis(a);
+	inputis(b);
+	
+	se (a > b) {
+		escrevis(a);
+	} 
+	senãozis {
+		escrevis(a);
+	}
+	
+	enquantis (a > b) {
+		inputis(b);
+	}
+	
+	paris(i=0;i<3;i++){
+		escrevis(a);
+	}
 	
 cacildis;
