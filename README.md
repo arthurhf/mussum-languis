@@ -36,8 +36,8 @@ Abaixo temos um exemplo correto de como declarar três variáveis inteiras, atri
 #Esse é um comentário
 programis  
     inteiris a, b, c;
-	a =1;
-	b = 2;
+    a = 1;
+    b = 2;
     c = a+b;
     escrevis(c)	
 cacildis;
@@ -46,8 +46,8 @@ O bloco de declaração de variáveis deve, obrigatoriamente, ser feito antes do
 ```
 programis  
     inteiris a, b;
-	a = 1;
-	b = 2;
+    a = 1;
+    b = 2;
     inteiris c;
     c = a+b;
     escrevis(c)	
@@ -68,12 +68,12 @@ Para **Estruturas de Decisão**, fazemos o seguinte:
 ```
 programis  
     inteiris a = 1, b = 2;
-	se (a < b) {
-		escrevis(a);	
+    se (a < b) {
+        escrevis(a);
     }
     senãozis {
-		escrevis(b);
-	}
+        escrevis(b);
+    }
 cacildis;
 ```
 Para **Estruturas de Repetição**, temos:  
@@ -93,9 +93,9 @@ programis
     inteiris a, b;
     a = 1;
     b = 2;
-	enquantis (a < b) {
-		escrevis(b);
-	}
+    enquantis (a < b) {
+        escrevis(b);
+    }
 cacildis;
 ```
 ### Laço 'Facis...Enquantis'
@@ -104,16 +104,16 @@ programis
     inteiris a, b;
     a = 1;
     b = 2;
-	facis{
-		escrevis(a);
-	}enquantis(b==2)
+    facis{
+        escrevis(a);
+    }enquantis(b==2)
 cacildis;
 ```
 Tentar fazer, por exemplo, ```paris(inteiris c=0;c<3;c++)``` ou  
 ```
 paris(c=0;c<3;c++){
     inteiris(h);
-	escrevis(a);
+    escrevis(a);
 }
 ```
 gera erro de compilação. Não é possível declarar uma variável dentro do laço.
