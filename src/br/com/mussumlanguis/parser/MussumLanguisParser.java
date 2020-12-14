@@ -13,6 +13,7 @@ package br.com.mussumlanguis.parser;
 	import br.com.mussumlanguis.ast.DecisionCommand;
 	import br.com.mussumlanguis.ast.WhileCommand;
 	import br.com.mussumlanguis.ast.ForCommand;
+	import br.com.mussumlanguis.ast.DoWhileCommand;
 	import java.util.ArrayList;
 	import java.util.Stack;
 	import java.util.logging.*; 
@@ -51,7 +52,7 @@ public class MussumLanguisParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'programis'", "'cacildis'", "'#COMENTIS'", "'#DESCOMENTIS'", "'inputis'", 
+		null, "'programis'", "'cacildis;'", "'#COMENTIS'", "'#DESCOMENTIS'", "'inputis'", 
 		"'escrevis'", "'inteiris'", null, "'quebradis'", null, null, null, "'booleanis'", 
 		null, "'caract\u00E9ris'", null, "'('", "')'", "';'", null, null, "'='", 
 		"'se'", "'sen\u00E3ozis'", "'facis'", "'paris'", "'enquantis'", "'{'", 
@@ -206,9 +207,6 @@ public class MussumLanguisParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class ProgContext extends ParserRuleContext {
-		public DeclContext decl() {
-			return getRuleContext(DeclContext.class,0);
-		}
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
@@ -235,10 +233,8 @@ public class MussumLanguisParser extends Parser {
 			setState(32);
 			match(T__0);
 			setState(33);
-			decl();
-			setState(34);
 			block();
-			setState(35);
+			setState(34);
 			match(T__1);
 
 																program.setSymbolTable(symbolTable);
@@ -282,24 +278,30 @@ public class MussumLanguisParser extends Parser {
 	public final DeclContext decl() throws RecognitionException {
 		DeclContext _localctx = new DeclContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_decl);
-		int _la;
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(39); 
+			setState(38); 
 			_errHandler.sync(this);
-			_la = _input.LA(1);
+			_alt = 1;
 			do {
-				{
-				{
-				setState(38);
-				var_decl();
+				switch (_alt) {
+				case 1:
+					{
+					{
+					setState(37);
+					var_decl();
+					}
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
 				}
-				}
-				setState(41); 
+				setState(40); 
 				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT_DECL) | (1L << DOUBLE_DECL) | (1L << STRING_DECL) | (1L << BOOLEAN_DECL) | (1L << CHAR_DECL))) != 0) );
+				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
+			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 			}
 		}
 		catch (RecognitionException re) {
@@ -347,29 +349,29 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43);
+			setState(42);
 			type();
-			setState(44);
+			setState(43);
 			match(ID);
 			 addSymbol(); 
-			setState(51);
+			setState(50);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(46);
+				setState(45);
 				match(COMMA);
-				setState(47);
+				setState(46);
 				match(ID);
 				 addSymbol(); 
 				}
 				}
-				setState(53);
+				setState(52);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(54);
+			setState(53);
 			match(SC);
 			}
 		}
@@ -408,13 +410,13 @@ public class MussumLanguisParser extends Parser {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_type);
 		try {
-			setState(66);
+			setState(65);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case INT_DECL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(56);
+				setState(55);
 				match(INT_DECL);
 					_type = MussumVariable.INT;		
 				}
@@ -422,7 +424,7 @@ public class MussumLanguisParser extends Parser {
 			case STRING_DECL:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(58);
+				setState(57);
 				match(STRING_DECL);
 					_type = MussumVariable.TEXT;	
 				}
@@ -430,7 +432,7 @@ public class MussumLanguisParser extends Parser {
 			case DOUBLE_DECL:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(60);
+				setState(59);
 				match(DOUBLE_DECL);
 					_type = MussumVariable.DOUBLE;	
 				}
@@ -438,7 +440,7 @@ public class MussumLanguisParser extends Parser {
 			case BOOLEAN_DECL:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(62);
+				setState(61);
 				match(BOOLEAN_DECL);
 					_type = MussumVariable.BOOLEAN;	
 				}
@@ -446,7 +448,7 @@ public class MussumLanguisParser extends Parser {
 			case CHAR_DECL:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(64);
+				setState(63);
 				match(CHAR_DECL);
 					_type = MussumVariable.CHAR;	
 				}
@@ -497,20 +499,20 @@ public class MussumLanguisParser extends Parser {
 				currThread = new ArrayList<AbstractCommand>();
 							commandStack.push(currThread);
 						
-			setState(70); 
+			setState(69); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(69);
+				setState(68);
 				cmd();
 				}
 				}
-				setState(72); 
+				setState(71); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << INT_DECL) | (1L << DOUBLE_DECL) | (1L << STRING_DECL) | (1L << BOOLEAN_DECL) | (1L << CHAR_DECL) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -549,6 +551,9 @@ public class MussumLanguisParser extends Parser {
 		public CommentContext comment() {
 			return getRuleContext(CommentContext.class,0);
 		}
+		public DeclContext decl() {
+			return getRuleContext(DeclContext.class,0);
+		}
 		public CmdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -569,65 +574,70 @@ public class MussumLanguisParser extends Parser {
 		try {
 			setState(82);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case T__4:
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(74);
+				setState(73);
 				read_cmd();
 				}
 				break;
-			case T__5:
+			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(75);
+				setState(74);
 				write_cmd();
 				}
 				break;
-			case IF:
+			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(76);
+				setState(75);
 				decision_cmd();
 				}
 				break;
-			case ID:
+			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(77);
+				setState(76);
 				attr_cmd();
 				}
 				break;
-			case FOR:
+			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(78);
+				setState(77);
 				forg();
 				}
 				break;
-			case WHILE:
+			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(79);
+				setState(78);
 				whileg();
 				}
 				break;
-			case DO:
+			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(80);
+				setState(79);
 				dog();
 				}
 				break;
-			case T__2:
+			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(81);
+				setState(80);
 				comment();
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
+			case 9:
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(81);
+				decl();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -860,6 +870,7 @@ public class MussumLanguisParser extends Parser {
 			match(ID);
 				_exprDecision = _input.LT(-1).getText();
 													verifyAssignment();
+													_exprContent = "";
 												
 			setState(113);
 			match(OPREL);
@@ -888,7 +899,7 @@ public class MussumLanguisParser extends Parser {
 				setState(123); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << INT_DECL) | (1L << DOUBLE_DECL) | (1L << STRING_DECL) | (1L << BOOLEAN_DECL) | (1L << CHAR_DECL) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
 			setState(125);
 			match(R_CURL);
 				trueList = commandStack.pop();					
@@ -917,7 +928,7 @@ public class MussumLanguisParser extends Parser {
 					setState(133); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
+				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << INT_DECL) | (1L << DOUBLE_DECL) | (1L << STRING_DECL) | (1L << BOOLEAN_DECL) | (1L << CHAR_DECL) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
 				setState(135);
 				match(R_CURL);
 					falseList = commandStack.pop(); 				
@@ -984,8 +995,7 @@ public class MussumLanguisParser extends Parser {
 			setState(143);
 			match(L_CURL);
 				currThread = new ArrayList<AbstractCommand>();	
-											commandStack.push(currThread);
-											conditionStack.push(_exprWhile);
+										commandStack.push(currThread);
 									
 			setState(146); 
 			_errHandler.sync(this);
@@ -1000,30 +1010,31 @@ public class MussumLanguisParser extends Parser {
 				setState(148); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << INT_DECL) | (1L << DOUBLE_DECL) | (1L << STRING_DECL) | (1L << BOOLEAN_DECL) | (1L << CHAR_DECL) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
 			setState(150);
 			match(R_CURL);
-				
-											WhileCommand cmd = new WhileCommand(conditionStack.pop(), commandStack.pop());
-											commandStack.peek().add(cmd);
-									
-			setState(152);
+			setState(151);
 			match(WHILE);
-			setState(153);
+			setState(152);
 			match(L_PAREN);
-			setState(154);
+			setState(153);
 			match(ID);
 			 	_exprWhile = _input.LT(-1).getText();
-											verifyAssignment();
+										verifyAssignment();
+										_exprContent = "";
 									
-			setState(156);
+			setState(155);
 			match(OPREL);
 				_exprWhile += _input.LT(-1).getText();		
-			setState(158);
+			setState(157);
 			expr();
 				_exprWhile += _exprContent;					
-			setState(160);
+			setState(159);
 			match(R_PAREN);
+				
+										DoWhileCommand cmd = new DoWhileCommand(_exprWhile, commandStack.pop());
+										commandStack.peek().add(cmd);
+									
 			}
 		}
 		catch (RecognitionException re) {
@@ -1083,6 +1094,7 @@ public class MussumLanguisParser extends Parser {
 			match(ID);
 			 	_exprWhile = _input.LT(-1).getText();
 											verifyAssignment();
+											_exprContent = "";
 										
 			setState(166);
 			match(OPREL);
@@ -1111,7 +1123,7 @@ public class MussumLanguisParser extends Parser {
 				setState(176); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << INT_DECL) | (1L << DOUBLE_DECL) | (1L << STRING_DECL) | (1L << BOOLEAN_DECL) | (1L << CHAR_DECL) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
 			setState(178);
 			match(R_CURL);
 				
@@ -1257,7 +1269,7 @@ public class MussumLanguisParser extends Parser {
 				setState(208); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__4) | (1L << T__5) | (1L << INT_DECL) | (1L << DOUBLE_DECL) | (1L << STRING_DECL) | (1L << BOOLEAN_DECL) | (1L << CHAR_DECL) | (1L << IF) | (1L << DO) | (1L << FOR) | (1L << WHILE) | (1L << ID))) != 0) );
 			setState(210);
 			match(R_CURL);
 
@@ -1278,12 +1290,15 @@ public class MussumLanguisParser extends Parser {
 	}
 
 	public static class Attr_cmdContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(MussumLanguisParser.ID, 0); }
 		public TerminalNode ATTR() { return getToken(MussumLanguisParser.ATTR, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
 		public TerminalNode SC() { return getToken(MussumLanguisParser.SC, 0); }
+		public TerminalNode ID() { return getToken(MussumLanguisParser.ID, 0); }
+		public TypeContext type() {
+			return getRuleContext(TypeContext.class,0);
+		}
 		public Attr_cmdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1304,19 +1319,43 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(213);
-			match(ID);
-			 	verifyID(); 
-														_exprId = _input.LT(-1).getText();
-													
-			setState(215);
+			setState(220);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case INT_DECL:
+			case DOUBLE_DECL:
+			case STRING_DECL:
+			case BOOLEAN_DECL:
+			case CHAR_DECL:
+				{
+				{
+				setState(213);
+				type();
+				setState(214);
+				match(ID);
+				}
+				 	addSymbol(); 							
+				}
+				break;
+			case ID:
+				{
+				setState(218);
+				match(ID);
+				 	verifyID(); 							
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+				_exprId = _input.LT(-1).getText();		
+			setState(223);
 			match(ATTR);
 			 	_exprContent = "";	
 														_varType = ((MussumVariable) symbolTable.get(_exprId)).getType();
 													
-			setState(217);
+			setState(225);
 			expr();
-			setState(218);
+			setState(226);
 			match(SC);
 				
 														assignValue();
@@ -1370,7 +1409,7 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(237);
+			setState(244);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case INT_VAL:
@@ -1379,22 +1418,22 @@ public class MussumLanguisParser extends Parser {
 			case ID:
 				{
 				{
-				setState(221);
+				setState(229);
 				expr_token();
-				setState(227);
+				setState(235);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==OP) {
 					{
 					{
-					setState(222);
+					setState(230);
 					match(OP);
 					 _exprContent += _input.LT(-1).getText();	
-					setState(224);
+					setState(232);
 					expr_token();
 					}
 					}
-					setState(229);
+					setState(237);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -1404,27 +1443,31 @@ public class MussumLanguisParser extends Parser {
 			case BOOLEAN_VAL:
 			case CHAR_VAL:
 				{
-				setState(234);
+				setState(242);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case BOOLEAN_VAL:
 					{
-					setState(230);
+					setState(238);
 					match(BOOLEAN_VAL);
 						verifyVarType(MussumVariable.BOOLEAN);		
+																String booleanInput = _input.LT(-1).getText();
+																_exprContent += booleanInput.equals("falsis") ? "false" : "true";
+															
 					}
 					break;
 				case CHAR_VAL:
 					{
-					setState(232);
+					setState(240);
 					match(CHAR_VAL);
 						verifyVarType(MussumVariable.CHAR);			
+																_exprContent += _input.LT(-1).getText();
+															
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-					_exprContent += _input.LT(-1).getText();	
 				}
 				break;
 			default:
@@ -1468,12 +1511,12 @@ public class MussumLanguisParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(247);
+			setState(254);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
 				{
-				setState(239);
+				setState(246);
 				match(ID);
 					verifyID();	
 															verifyAssignment();
@@ -1484,21 +1527,21 @@ public class MussumLanguisParser extends Parser {
 				break;
 			case INT_VAL:
 				{
-				setState(241);
+				setState(248);
 				match(INT_VAL);
 					verifyVarType(MussumVariable.INT);			
 				}
 				break;
 			case DOUBLE_VAL:
 				{
-				setState(243);
+				setState(250);
 				match(DOUBLE_VAL);
 					verifyVarType(MussumVariable.DOUBLE);		
 				}
 				break;
 			case STRING_VAL:
 				{
-				setState(245);
+				setState(252);
 				match(STRING_VAL);
 					verifyVarType(MussumVariable.TEXT);			
 				}
@@ -1521,12 +1564,12 @@ public class MussumLanguisParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u00fe\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u0105\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\3\2\3\2\3"+
-		"\2\3\2\3\2\3\2\3\3\6\3*\n\3\r\3\16\3+\3\4\3\4\3\4\3\4\3\4\3\4\7\4\64\n"+
-		"\4\f\4\16\4\67\13\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5"+
-		"\5E\n\5\3\6\3\6\6\6I\n\6\r\6\16\6J\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7"+
+		"\2\3\2\3\2\3\3\6\3)\n\3\r\3\16\3*\3\4\3\4\3\4\3\4\3\4\3\4\7\4\63\n\4\f"+
+		"\4\16\4\66\13\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5D\n"+
+		"\5\3\6\3\6\6\6H\n\6\r\6\16\6I\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7"+
 		"U\n\7\3\b\3\b\7\bY\n\b\f\b\16\b\\\13\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t"+
 		"\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13"+
 		"\3\13\3\13\3\13\3\13\3\13\3\13\6\13|\n\13\r\13\16\13}\3\13\3\13\3\13\3"+
@@ -1536,71 +1579,74 @@ public class MussumLanguisParser extends Parser {
 		"\3\r\3\r\3\r\3\r\6\r\u00b1\n\r\r\r\16\r\u00b2\3\r\3\r\3\r\3\16\3\16\3"+
 		"\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3"+
 		"\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\6\16\u00d1\n\16\r\16\16\16"+
-		"\u00d2\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20"+
-		"\3\20\3\20\7\20\u00e4\n\20\f\20\16\20\u00e7\13\20\3\20\3\20\3\20\3\20"+
-		"\5\20\u00ed\n\20\3\20\5\20\u00f0\n\20\3\21\3\21\3\21\3\21\3\21\3\21\3"+
-		"\21\3\21\5\21\u00fa\n\21\3\21\3\21\3\21\3Z\2\22\2\4\6\b\n\f\16\20\22\24"+
-		"\26\30\32\34\36 \2\2\2\u0108\2\"\3\2\2\2\4)\3\2\2\2\6-\3\2\2\2\bD\3\2"+
-		"\2\2\nF\3\2\2\2\fT\3\2\2\2\16V\3\2\2\2\20_\3\2\2\2\22g\3\2\2\2\24o\3\2"+
-		"\2\2\26\u0090\3\2\2\2\30\u00a4\3\2\2\2\32\u00b7\3\2\2\2\34\u00d7\3\2\2"+
-		"\2\36\u00ef\3\2\2\2 \u00f9\3\2\2\2\"#\7\3\2\2#$\5\4\3\2$%\5\n\6\2%&\7"+
-		"\4\2\2&\'\b\2\1\2\'\3\3\2\2\2(*\5\6\4\2)(\3\2\2\2*+\3\2\2\2+)\3\2\2\2"+
-		"+,\3\2\2\2,\5\3\2\2\2-.\5\b\5\2./\7\"\2\2/\65\b\4\1\2\60\61\7 \2\2\61"+
-		"\62\7\"\2\2\62\64\b\4\1\2\63\60\3\2\2\2\64\67\3\2\2\2\65\63\3\2\2\2\65"+
-		"\66\3\2\2\2\668\3\2\2\2\67\65\3\2\2\289\7\25\2\29\7\3\2\2\2:;\7\t\2\2"+
-		";E\b\5\1\2<=\7\r\2\2=E\b\5\1\2>?\7\13\2\2?E\b\5\1\2@A\7\17\2\2AE\b\5\1"+
-		"\2BC\7\21\2\2CE\b\5\1\2D:\3\2\2\2D<\3\2\2\2D>\3\2\2\2D@\3\2\2\2DB\3\2"+
-		"\2\2E\t\3\2\2\2FH\b\6\1\2GI\5\f\7\2HG\3\2\2\2IJ\3\2\2\2JH\3\2\2\2JK\3"+
-		"\2\2\2K\13\3\2\2\2LU\5\20\t\2MU\5\22\n\2NU\5\24\13\2OU\5\34\17\2PU\5\32"+
-		"\16\2QU\5\30\r\2RU\5\26\f\2SU\5\16\b\2TL\3\2\2\2TM\3\2\2\2TN\3\2\2\2T"+
-		"O\3\2\2\2TP\3\2\2\2TQ\3\2\2\2TR\3\2\2\2TS\3\2\2\2U\r\3\2\2\2VZ\7\5\2\2"+
-		"WY\13\2\2\2XW\3\2\2\2Y\\\3\2\2\2Z[\3\2\2\2ZX\3\2\2\2[]\3\2\2\2\\Z\3\2"+
-		"\2\2]^\7\6\2\2^\17\3\2\2\2_`\7\7\2\2`a\7\23\2\2ab\7\"\2\2bc\b\t\1\2cd"+
-		"\7\24\2\2de\7\25\2\2ef\b\t\1\2f\21\3\2\2\2gh\7\b\2\2hi\7\23\2\2ij\7\""+
-		"\2\2jk\b\n\1\2kl\7\24\2\2lm\7\25\2\2mn\b\n\1\2n\23\3\2\2\2op\7\31\2\2"+
-		"pq\7\23\2\2qr\7\"\2\2rs\b\13\1\2st\7!\2\2tu\b\13\1\2uv\5\36\20\2vw\b\13"+
-		"\1\2wx\7\24\2\2xy\7\36\2\2y{\b\13\1\2z|\5\f\7\2{z\3\2\2\2|}\3\2\2\2}{"+
-		"\3\2\2\2}~\3\2\2\2~\177\3\2\2\2\177\u0080\7\37\2\2\u0080\u008c\b\13\1"+
-		"\2\u0081\u0082\7\32\2\2\u0082\u0083\7\36\2\2\u0083\u0085\b\13\1\2\u0084"+
-		"\u0086\5\f\7\2\u0085\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0085\3\2"+
-		"\2\2\u0087\u0088\3\2\2\2\u0088\u0089\3\2\2\2\u0089\u008a\7\37\2\2\u008a"+
-		"\u008b\b\13\1\2\u008b\u008d\3\2\2\2\u008c\u0081\3\2\2\2\u008c\u008d\3"+
-		"\2\2\2\u008d\u008e\3\2\2\2\u008e\u008f\b\13\1\2\u008f\25\3\2\2\2\u0090"+
-		"\u0091\7\33\2\2\u0091\u0092\7\36\2\2\u0092\u0094\b\f\1\2\u0093\u0095\5"+
-		"\f\7\2\u0094\u0093\3\2\2\2\u0095\u0096\3\2\2\2\u0096\u0094\3\2\2\2\u0096"+
-		"\u0097\3\2\2\2\u0097\u0098\3\2\2\2\u0098\u0099\7\37\2\2\u0099\u009a\b"+
-		"\f\1\2\u009a\u009b\7\35\2\2\u009b\u009c\7\23\2\2\u009c\u009d\7\"\2\2\u009d"+
-		"\u009e\b\f\1\2\u009e\u009f\7!\2\2\u009f\u00a0\b\f\1\2\u00a0\u00a1\5\36"+
-		"\20\2\u00a1\u00a2\b\f\1\2\u00a2\u00a3\7\24\2\2\u00a3\27\3\2\2\2\u00a4"+
-		"\u00a5\7\35\2\2\u00a5\u00a6\7\23\2\2\u00a6\u00a7\7\"\2\2\u00a7\u00a8\b"+
-		"\r\1\2\u00a8\u00a9\7!\2\2\u00a9\u00aa\b\r\1\2\u00aa\u00ab\5\36\20\2\u00ab"+
-		"\u00ac\b\r\1\2\u00ac\u00ad\7\24\2\2\u00ad\u00ae\7\36\2\2\u00ae\u00b0\b"+
-		"\r\1\2\u00af\u00b1\5\f\7\2\u00b0\u00af\3\2\2\2\u00b1\u00b2\3\2\2\2\u00b2"+
-		"\u00b0\3\2\2\2\u00b2\u00b3\3\2\2\2\u00b3\u00b4\3\2\2\2\u00b4\u00b5\7\37"+
-		"\2\2\u00b5\u00b6\b\r\1\2\u00b6\31\3\2\2\2\u00b7\u00b8\7\34\2\2\u00b8\u00b9"+
-		"\7\23\2\2\u00b9\u00ba\7\"\2\2\u00ba\u00bb\b\16\1\2\u00bb\u00bc\7\30\2"+
-		"\2\u00bc\u00bd\b\16\1\2\u00bd\u00be\5\36\20\2\u00be\u00bf\7\25\2\2\u00bf"+
-		"\u00c0\b\16\1\2\u00c0\u00c1\7\"\2\2\u00c1\u00c2\b\16\1\2\u00c2\u00c3\7"+
-		"!\2\2\u00c3\u00c4\b\16\1\2\u00c4\u00c5\5\36\20\2\u00c5\u00c6\b\16\1\2"+
-		"\u00c6\u00c7\7\25\2\2\u00c7\u00c8\b\16\1\2\u00c8\u00c9\7\"\2\2\u00c9\u00ca"+
-		"\b\16\1\2\u00ca\u00cb\7\27\2\2\u00cb\u00cc\b\16\1\2\u00cc\u00cd\7\24\2"+
-		"\2\u00cd\u00ce\7\36\2\2\u00ce\u00d0\b\16\1\2\u00cf\u00d1\5\f\7\2\u00d0"+
-		"\u00cf\3\2\2\2\u00d1\u00d2\3\2\2\2\u00d2\u00d0\3\2\2\2\u00d2\u00d3\3\2"+
-		"\2\2\u00d3\u00d4\3\2\2\2\u00d4\u00d5\7\37\2\2\u00d5\u00d6\b\16\1\2\u00d6"+
-		"\33\3\2\2\2\u00d7\u00d8\7\"\2\2\u00d8\u00d9\b\17\1\2\u00d9\u00da\7\30"+
-		"\2\2\u00da\u00db\b\17\1\2\u00db\u00dc\5\36\20\2\u00dc\u00dd\7\25\2\2\u00dd"+
-		"\u00de\b\17\1\2\u00de\35\3\2\2\2\u00df\u00e5\5 \21\2\u00e0\u00e1\7\26"+
-		"\2\2\u00e1\u00e2\b\20\1\2\u00e2\u00e4\5 \21\2\u00e3\u00e0\3\2\2\2\u00e4"+
-		"\u00e7\3\2\2\2\u00e5\u00e3\3\2\2\2\u00e5\u00e6\3\2\2\2\u00e6\u00f0\3\2"+
-		"\2\2\u00e7\u00e5\3\2\2\2\u00e8\u00e9\7\20\2\2\u00e9\u00ed\b\20\1\2\u00ea"+
-		"\u00eb\7\22\2\2\u00eb\u00ed\b\20\1\2\u00ec\u00e8\3\2\2\2\u00ec\u00ea\3"+
-		"\2\2\2\u00ed\u00ee\3\2\2\2\u00ee\u00f0\b\20\1\2\u00ef\u00df\3\2\2\2\u00ef"+
-		"\u00ec\3\2\2\2\u00f0\37\3\2\2\2\u00f1\u00f2\7\"\2\2\u00f2\u00fa\b\21\1"+
-		"\2\u00f3\u00f4\7\n\2\2\u00f4\u00fa\b\21\1\2\u00f5\u00f6\7\f\2\2\u00f6"+
-		"\u00fa\b\21\1\2\u00f7\u00f8\7\16\2\2\u00f8\u00fa\b\21\1\2\u00f9\u00f1"+
-		"\3\2\2\2\u00f9\u00f3\3\2\2\2\u00f9\u00f5\3\2\2\2\u00f9\u00f7\3\2\2\2\u00fa"+
-		"\u00fb\3\2\2\2\u00fb\u00fc\b\21\1\2\u00fc!\3\2\2\2\22+\65DJTZ}\u0087\u008c"+
-		"\u0096\u00b2\u00d2\u00e5\u00ec\u00ef\u00f9";
+		"\u00d2\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\3\17\5\17\u00df\n"+
+		"\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\20\3\20\7\20\u00ec"+
+		"\n\20\f\20\16\20\u00ef\13\20\3\20\3\20\3\20\3\20\5\20\u00f5\n\20\5\20"+
+		"\u00f7\n\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u0101\n\21\3"+
+		"\21\3\21\3\21\3Z\2\22\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \2\2\2\u0111"+
+		"\2\"\3\2\2\2\4(\3\2\2\2\6,\3\2\2\2\bC\3\2\2\2\nE\3\2\2\2\fT\3\2\2\2\16"+
+		"V\3\2\2\2\20_\3\2\2\2\22g\3\2\2\2\24o\3\2\2\2\26\u0090\3\2\2\2\30\u00a4"+
+		"\3\2\2\2\32\u00b7\3\2\2\2\34\u00de\3\2\2\2\36\u00f6\3\2\2\2 \u0100\3\2"+
+		"\2\2\"#\7\3\2\2#$\5\n\6\2$%\7\4\2\2%&\b\2\1\2&\3\3\2\2\2\')\5\6\4\2(\'"+
+		"\3\2\2\2)*\3\2\2\2*(\3\2\2\2*+\3\2\2\2+\5\3\2\2\2,-\5\b\5\2-.\7\"\2\2"+
+		".\64\b\4\1\2/\60\7 \2\2\60\61\7\"\2\2\61\63\b\4\1\2\62/\3\2\2\2\63\66"+
+		"\3\2\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\67\3\2\2\2\66\64\3\2\2\2\678\7"+
+		"\25\2\28\7\3\2\2\29:\7\t\2\2:D\b\5\1\2;<\7\r\2\2<D\b\5\1\2=>\7\13\2\2"+
+		">D\b\5\1\2?@\7\17\2\2@D\b\5\1\2AB\7\21\2\2BD\b\5\1\2C9\3\2\2\2C;\3\2\2"+
+		"\2C=\3\2\2\2C?\3\2\2\2CA\3\2\2\2D\t\3\2\2\2EG\b\6\1\2FH\5\f\7\2GF\3\2"+
+		"\2\2HI\3\2\2\2IG\3\2\2\2IJ\3\2\2\2J\13\3\2\2\2KU\5\20\t\2LU\5\22\n\2M"+
+		"U\5\24\13\2NU\5\34\17\2OU\5\32\16\2PU\5\30\r\2QU\5\26\f\2RU\5\16\b\2S"+
+		"U\5\4\3\2TK\3\2\2\2TL\3\2\2\2TM\3\2\2\2TN\3\2\2\2TO\3\2\2\2TP\3\2\2\2"+
+		"TQ\3\2\2\2TR\3\2\2\2TS\3\2\2\2U\r\3\2\2\2VZ\7\5\2\2WY\13\2\2\2XW\3\2\2"+
+		"\2Y\\\3\2\2\2Z[\3\2\2\2ZX\3\2\2\2[]\3\2\2\2\\Z\3\2\2\2]^\7\6\2\2^\17\3"+
+		"\2\2\2_`\7\7\2\2`a\7\23\2\2ab\7\"\2\2bc\b\t\1\2cd\7\24\2\2de\7\25\2\2"+
+		"ef\b\t\1\2f\21\3\2\2\2gh\7\b\2\2hi\7\23\2\2ij\7\"\2\2jk\b\n\1\2kl\7\24"+
+		"\2\2lm\7\25\2\2mn\b\n\1\2n\23\3\2\2\2op\7\31\2\2pq\7\23\2\2qr\7\"\2\2"+
+		"rs\b\13\1\2st\7!\2\2tu\b\13\1\2uv\5\36\20\2vw\b\13\1\2wx\7\24\2\2xy\7"+
+		"\36\2\2y{\b\13\1\2z|\5\f\7\2{z\3\2\2\2|}\3\2\2\2}{\3\2\2\2}~\3\2\2\2~"+
+		"\177\3\2\2\2\177\u0080\7\37\2\2\u0080\u008c\b\13\1\2\u0081\u0082\7\32"+
+		"\2\2\u0082\u0083\7\36\2\2\u0083\u0085\b\13\1\2\u0084\u0086\5\f\7\2\u0085"+
+		"\u0084\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088\3\2"+
+		"\2\2\u0088\u0089\3\2\2\2\u0089\u008a\7\37\2\2\u008a\u008b\b\13\1\2\u008b"+
+		"\u008d\3\2\2\2\u008c\u0081\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u008e\3\2"+
+		"\2\2\u008e\u008f\b\13\1\2\u008f\25\3\2\2\2\u0090\u0091\7\33\2\2\u0091"+
+		"\u0092\7\36\2\2\u0092\u0094\b\f\1\2\u0093\u0095\5\f\7\2\u0094\u0093\3"+
+		"\2\2\2\u0095\u0096\3\2\2\2\u0096\u0094\3\2\2\2\u0096\u0097\3\2\2\2\u0097"+
+		"\u0098\3\2\2\2\u0098\u0099\7\37\2\2\u0099\u009a\7\35\2\2\u009a\u009b\7"+
+		"\23\2\2\u009b\u009c\7\"\2\2\u009c\u009d\b\f\1\2\u009d\u009e\7!\2\2\u009e"+
+		"\u009f\b\f\1\2\u009f\u00a0\5\36\20\2\u00a0\u00a1\b\f\1\2\u00a1\u00a2\7"+
+		"\24\2\2\u00a2\u00a3\b\f\1\2\u00a3\27\3\2\2\2\u00a4\u00a5\7\35\2\2\u00a5"+
+		"\u00a6\7\23\2\2\u00a6\u00a7\7\"\2\2\u00a7\u00a8\b\r\1\2\u00a8\u00a9\7"+
+		"!\2\2\u00a9\u00aa\b\r\1\2\u00aa\u00ab\5\36\20\2\u00ab\u00ac\b\r\1\2\u00ac"+
+		"\u00ad\7\24\2\2\u00ad\u00ae\7\36\2\2\u00ae\u00b0\b\r\1\2\u00af\u00b1\5"+
+		"\f\7\2\u00b0\u00af\3\2\2\2\u00b1\u00b2\3\2\2\2\u00b2\u00b0\3\2\2\2\u00b2"+
+		"\u00b3\3\2\2\2\u00b3\u00b4\3\2\2\2\u00b4\u00b5\7\37\2\2\u00b5\u00b6\b"+
+		"\r\1\2\u00b6\31\3\2\2\2\u00b7\u00b8\7\34\2\2\u00b8\u00b9\7\23\2\2\u00b9"+
+		"\u00ba\7\"\2\2\u00ba\u00bb\b\16\1\2\u00bb\u00bc\7\30\2\2\u00bc\u00bd\b"+
+		"\16\1\2\u00bd\u00be\5\36\20\2\u00be\u00bf\7\25\2\2\u00bf\u00c0\b\16\1"+
+		"\2\u00c0\u00c1\7\"\2\2\u00c1\u00c2\b\16\1\2\u00c2\u00c3\7!\2\2\u00c3\u00c4"+
+		"\b\16\1\2\u00c4\u00c5\5\36\20\2\u00c5\u00c6\b\16\1\2\u00c6\u00c7\7\25"+
+		"\2\2\u00c7\u00c8\b\16\1\2\u00c8\u00c9\7\"\2\2\u00c9\u00ca\b\16\1\2\u00ca"+
+		"\u00cb\7\27\2\2\u00cb\u00cc\b\16\1\2\u00cc\u00cd\7\24\2\2\u00cd\u00ce"+
+		"\7\36\2\2\u00ce\u00d0\b\16\1\2\u00cf\u00d1\5\f\7\2\u00d0\u00cf\3\2\2\2"+
+		"\u00d1\u00d2\3\2\2\2\u00d2\u00d0\3\2\2\2\u00d2\u00d3\3\2\2\2\u00d3\u00d4"+
+		"\3\2\2\2\u00d4\u00d5\7\37\2\2\u00d5\u00d6\b\16\1\2\u00d6\33\3\2\2\2\u00d7"+
+		"\u00d8\5\b\5\2\u00d8\u00d9\7\"\2\2\u00d9\u00da\3\2\2\2\u00da\u00db\b\17"+
+		"\1\2\u00db\u00df\3\2\2\2\u00dc\u00dd\7\"\2\2\u00dd\u00df\b\17\1\2\u00de"+
+		"\u00d7\3\2\2\2\u00de\u00dc\3\2\2\2\u00df\u00e0\3\2\2\2\u00e0\u00e1\b\17"+
+		"\1\2\u00e1\u00e2\7\30\2\2\u00e2\u00e3\b\17\1\2\u00e3\u00e4\5\36\20\2\u00e4"+
+		"\u00e5\7\25\2\2\u00e5\u00e6\b\17\1\2\u00e6\35\3\2\2\2\u00e7\u00ed\5 \21"+
+		"\2\u00e8\u00e9\7\26\2\2\u00e9\u00ea\b\20\1\2\u00ea\u00ec\5 \21\2\u00eb"+
+		"\u00e8\3\2\2\2\u00ec\u00ef\3\2\2\2\u00ed\u00eb\3\2\2\2\u00ed\u00ee\3\2"+
+		"\2\2\u00ee\u00f7\3\2\2\2\u00ef\u00ed\3\2\2\2\u00f0\u00f1\7\20\2\2\u00f1"+
+		"\u00f5\b\20\1\2\u00f2\u00f3\7\22\2\2\u00f3\u00f5\b\20\1\2\u00f4\u00f0"+
+		"\3\2\2\2\u00f4\u00f2\3\2\2\2\u00f5\u00f7\3\2\2\2\u00f6\u00e7\3\2\2\2\u00f6"+
+		"\u00f4\3\2\2\2\u00f7\37\3\2\2\2\u00f8\u00f9\7\"\2\2\u00f9\u0101\b\21\1"+
+		"\2\u00fa\u00fb\7\n\2\2\u00fb\u0101\b\21\1\2\u00fc\u00fd\7\f\2\2\u00fd"+
+		"\u0101\b\21\1\2\u00fe\u00ff\7\16\2\2\u00ff\u0101\b\21\1\2\u0100\u00f8"+
+		"\3\2\2\2\u0100\u00fa\3\2\2\2\u0100\u00fc\3\2\2\2\u0100\u00fe\3\2\2\2\u0101"+
+		"\u0102\3\2\2\2\u0102\u0103\b\21\1\2\u0103!\3\2\2\2\23*\64CITZ}\u0087\u008c"+
+		"\u0096\u00b2\u00d2\u00de\u00ed\u00f4\u00f6\u0100";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

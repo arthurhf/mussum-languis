@@ -1,6 +1,7 @@
 package br.com.mussumlanguis.ast;
 
 import br.com.mussumlanguis.datastructures.MussumVariable;
+import br.com.mussumlanguis.exceptions.MussumSemanticException;
 
 public class ReadCommand extends AbstractCommand {
 	
@@ -13,11 +14,11 @@ public class ReadCommand extends AbstractCommand {
 	}
 
 	@Override
-	public String generateJavaCode() {
+	public String generateJavaCode() throws MussumSemanticException {
 		return String.format("    %s = %s;\n", this.id, getOperationCode());
 	}
 	
-	private String getOperationCode() {
+	private String getOperationCode() throws MussumSemanticException {
 		switch (this.var.getType()) {
 			case MussumVariable.INT:
 				return "_key.nextInt()";
@@ -29,7 +30,10 @@ public class ReadCommand extends AbstractCommand {
 				return "_key.nextLine()";
 				
 			case MussumVariable.CHAR:
-				return "_key.nextChar()";
+				return "_key.next(\".\").charAt(0)";
+				
+			case MussumVariable.BOOLEAN:
+				throw new MussumSemanticException("Não é possívis ler uma variávis booleanis");
 			
 			default:
 				throw new RuntimeException("tipis não definidis");

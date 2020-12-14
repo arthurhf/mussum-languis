@@ -13,6 +13,7 @@ grammar MussumLanguis;
 	import br.com.mussumlanguis.ast.DecisionCommand;
 	import br.com.mussumlanguis.ast.WhileCommand;
 	import br.com.mussumlanguis.ast.ForCommand;
+	import br.com.mussumlanguis.ast.DoWhileCommand;
 	import java.util.ArrayList;
 	import java.util.Stack;
 	import java.util.logging.*; 
@@ -111,7 +112,7 @@ grammar MussumLanguis;
  	}
 }
 
-prog	:  'programis' decl block 'cacildis'	{
+prog	:  'programis' block 'cacildis;'	{
 													program.setSymbolTable(symbolTable);
 													program.setCommands(commandStack.pop());
 													checkVariableUsage();
@@ -146,6 +147,7 @@ cmd		: read_cmd
  		| whileg
  		| dog
  		| comment
+ 		| decl
 		;
 
 comment		: 	'#COMENTIS' (.)*? '#DESCOMENTIS'
@@ -179,6 +181,7 @@ decision_cmd 	:	IF
 					L_PAREN
 					ID				{	_exprDecision = _input.LT(-1).getText();
 										verifyAssignment();
+										_exprContent = "";
 									}
 					OPREL 			{	_exprDecision += _input.LT(-1).getText();		}
 					expr			{	_exprDecision += _exprContent;					}
@@ -203,28 +206,29 @@ decision_cmd 	:	IF
 				
 dog	: 	DO		
 		L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
-								commandStack.push(currThread);
-								conditionStack.push(_exprWhile);
+							commandStack.push(currThread);
 						}
 		(cmd)+
-		R_CURL			{	
-								WhileCommand cmd = new WhileCommand(conditionStack.pop(), commandStack.pop());
-								commandStack.peek().add(cmd);
-						}
+		R_CURL
 		WHILE
 		L_PAREN 
 		ID 				{ 	_exprWhile = _input.LT(-1).getText();
-								verifyAssignment();
+							verifyAssignment();
+							_exprContent = "";
 						}
 		OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
 		expr			{	_exprWhile += _exprContent;					}
-		R_PAREN
+		R_PAREN			{	
+							DoWhileCommand cmd = new DoWhileCommand(_exprWhile, commandStack.pop());
+							commandStack.peek().add(cmd);
+						}
 		;
 		
 whileg	: 	WHILE 
 			L_PAREN 
 			ID 				{ 	_exprWhile = _input.LT(-1).getText();
 								verifyAssignment();
+								_exprContent = "";
 							}
 			OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
 			expr			{	_exprWhile += _exprContent;					}
@@ -285,10 +289,11 @@ forg	: 	FOR
 								commandStack.peek().add(cmd);
 							}
 		;
-		
-attr_cmd	:  	ID 						{ 	verifyID(); 
-											_exprId = _input.LT(-1).getText();
-										}
+	
+attr_cmd	:  	(
+					(type ID)			{ 	addSymbol(); 							} 
+					| ID 				{ 	verifyID(); 							}
+				)						{	_exprId = _input.LT(-1).getText();		}
 				ATTR 					{ 	_exprContent = "";	
 											_varType = ((MussumVariable) symbolTable.get(_exprId)).getType();
 										}
@@ -307,9 +312,15 @@ expr		:  	(
 						expr_token )*
 					)
 				|
-					(BOOLEAN_VAL		{	verifyVarType(MussumVariable.BOOLEAN);		}
-					| CHAR_VAL			{	verifyVarType(MussumVariable.CHAR);			}
-					)					{	_exprContent += _input.LT(-1).getText();	}
+					(
+						BOOLEAN_VAL		{	verifyVarType(MussumVariable.BOOLEAN);		
+											String booleanInput = _input.LT(-1).getText();
+											_exprContent += booleanInput.equals("falsis") ? "false" : "true";
+										}
+						| CHAR_VAL		{	verifyVarType(MussumVariable.CHAR);			
+											_exprContent += _input.LT(-1).getText();
+										}
+					)
 				)
 			;
 			
@@ -341,13 +352,13 @@ DOUBLE_VAL	: [0-9]+ ('.' [0-9]+)?
 STRING_DECL : 'textis' | 'stringuis'
 			;
 
-STRING_VAL	: '"' ([a-z]|[A-Z]|[0-9])* '"'
+STRING_VAL	: '"' ([a-z]|[A-Z]|[0-9]|' ')* '"'
 			;
 
 BOOLEAN_DECL	: 'booleanis'
 				;
 
-BOOLEAN_VAL : 'verdaderis' | 'falsis'
+BOOLEAN_VAL : 'verdadeiris' | 'falsis'
 			;
 
 CHAR_DECL 	: 'caractéris' 

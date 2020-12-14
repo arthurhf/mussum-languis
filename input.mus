@@ -1,38 +1,34 @@
 programis
 
 	inteiris a, b, c;
-	quebradis q;
-	booleanis bool;	
-	a =1;
-	b=2;
+	
+	textis text;
+	booleanis bol;
+	
+	bol = falsis;
+
+	a = 5;
+	b = 10;
+
+	enquantis (a == 10) {
+		enquantis(b == 50) {
+			escrevis(a);
+			se (b == a) {
+				inputis(b);
+			}
+		}
+	}
 	#COMENTIS
-	q = 2.2;
+	facis {
+			enquantis(b == 50) {
+			escrevis(a);
+			se (b == a) {
+				inputis(b);
+			}
+		}
+	} enquantis (a == 10);
 	#DESCOMENTIS
 	
-	se (a > b) {
-		se (a < c) {
-			escrevis(a);
-		}
+	textis ab = "textinho teste";
 
-	} 
-	senãozis {
-		escrevis(a);
-	}
-	
-	enquantis (a > b) {
-		enquantis (a < b) {
-			inputis(b);
-		}
-	}
-	
-	paris(c=0;c<3;c++){
-		paris (a=0; a>5; a--) {
-			escrevis(a);
-		}
-	}
-	
-	facis{
-		escrevis(a);
-	}enquantis(c=1) 
-	
-cacildis
+cacildis;

@@ -32,7 +32,7 @@ public class MussumProgram {
 		str.append("}");
 		
 		try {
-			FileWriter fr = new FileWriter(new File("MainClass2.java"));
+			FileWriter fr = new FileWriter(new File("MainClass.java"));
 			fr.write(str.toString());
 			fr.close();
 		} catch (Exception ex) {

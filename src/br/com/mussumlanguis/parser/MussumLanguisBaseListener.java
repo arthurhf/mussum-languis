@@ -13,6 +13,7 @@ package br.com.mussumlanguis.parser;
 	import br.com.mussumlanguis.ast.DecisionCommand;
 	import br.com.mussumlanguis.ast.WhileCommand;
 	import br.com.mussumlanguis.ast.ForCommand;
+	import br.com.mussumlanguis.ast.DoWhileCommand;
 	import java.util.ArrayList;
 	import java.util.Stack;
 	import java.util.logging.*; 
