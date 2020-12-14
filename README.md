@@ -5,37 +5,48 @@
 A linguagem de programação preferida de todo trapalhão.  
 O resultado é um arquivo Java.
 
-## Fluxo do programa
-prog → programis  
-fimprog → cacildis  
+# Regras básiquis
 
-## Estrutura de decisão
-se → se  
-senão → senãozis  
+## Fluxis do programis
+```
+programis  
+    ...  
+cacildis  
+```
 
-## Entrada/saída
-escreva → escrevis  
-leia → inputis  
+## Variávis
+```
+inteiris int_var = 5;
+quebradis double_var = 5.50; 
+textis string_var = "example";  
+booleanis true_bool = verdadeiris, false_bool = falsis; 
+```
+## Operações
+Operações aritméticas: Soma (+), Subtração (-), Divisão(/), Multiplicação (*)  
+Operações Relacionais (>, <, >=, <=, ==, !=)
 
-## Variáveis
+## Estruturis de decisão
+if → se  
+else → senãozis  
 
-int → inteiris  
-double → quebradis  
-string → textis/stringuis  
-boolean → booleanis  
+## Entradis/saídis
+output → escrevis  
+input → inputis    
 
-## Estrutura de repetição
-for → paris  
-while-> enquantis  
-do/while → facis{...} enquantis (...) 
+## Estruturis de repetição
+while → enquantis  
+do/while → facis {...} enquantis (...) 
 
-## Comentários
-Os comentários começam com ```#```.
+## Comentáris
+```
+    #COMENTIS
+    ...
+    #DESCOMENTIS
+```
   
-## Começandis
+# Começandis
 Abaixo temos um exemplo correto de como declarar três variáveis inteiras, atribuir valores à elas, somar e exibir o valor.
 ```
-#Esse é um comentário
 programis  
     inteiris a, b, c;
     a = 1;
@@ -44,17 +55,18 @@ programis
     escrevis(c)	
 cacildis;
 ```
+
 O bloco de declaração de variáveis pode ser feito antes ou depois do bloco com os comandos de Entrada/Saída, Estruturas de Repetição ou atribuição de variável. 
 ```
 programis  
     inteiris a, b;
     a = 1;
-    b = 2;
-    inteiris c;
-    c = a+b;
+    inputis(b);
+    inteiris c = a + b;
     escrevis(c)	
 cacildis;
 ```
+
 É possível declarar uma variável já atribuindo valor à ela:  
 ```
 programis  
@@ -84,7 +96,7 @@ Para **Estruturas de Repetição**, temos:
 programis  
     inteiris a, c;
     a = 1;
-    paris(c=0;c<3;c++){
+    paris (c = 0;c < 3; c++){
         escrevis(a);
     }
 cacildis;
@@ -106,20 +118,14 @@ programis
     inteiris a, b;
     a = 1;
     b = 2;
-    facis{
+    facis {
         escrevis(a);
-    }enquantis(b==2)
+    } enquantis(b == 2)
 cacildis;
 ```
-Tentar fazer, por exemplo, ```paris(inteiris c=0;c<3;c++)``` ou  
-```
-paris(c=0;c<3;c++){
-    inteiris(h);
-    escrevis(a);
-}
-```
+Tentar fazer ```paris(inteiris c=0;c<3;c++)```, entretanto, 
 gera erro de compilação. Não é possível declarar uma variável dentro do laço.
 
 ## Autores
 * [Arthur Henrique Fernandes](https://github.com/arthurhf/)
-* [Igor Neres](https://github.com/igornerest)
+* [Igor Neres Trindade](https://github.com/igornerest)
