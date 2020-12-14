@@ -46,6 +46,7 @@ grammar MussumLanguis;
 	private String _exprFor;
 	private ArrayList<AbstractCommand> commandList;
 	
+	private int _varType = -1;
 
 	public void verifyID() {
 		String id = ((TokenStream) _input).LT(-1).getText();
@@ -96,6 +97,16 @@ grammar MussumLanguis;
  		System.out.println("Simbolo atualizado: " + symbolTable.get(_attrVariable) ); 
  	}
 
+	public void verifyVarType(int currType) {
+		if (_varType == -1) {
+			_varType = currType;
+		} else if (_varType != currType) {
+			throw new MussumSemanticException ("Tentativis de declarar variaveis do tipo " + 
+				MussumVariable.getMussumType(currType) + " em " + MussumVariable.getMussumType(_varType));
+		
+		}
+	}
+	
  	public void showCommands() {
  		for (AbstractCommand cmd : program.getCommands()) {
  			System.out.println(cmd);
@@ -123,10 +134,11 @@ decl	: (var_decl)+
 var_decl	: type ID { addSymbol(); } (COMMA ID { addSymbol(); } )* SC
 			;
 
-type	:	INT		{	_type = MussumVariable.INT;		} 
-		|	STRING 	{	_type = MussumVariable.TEXT;	}
-		|	DOUBLE	{	_type = MussumVariable.DOUBLE;	}
-		|	BOOLEAN	{	_type = MussumVariable.BOOLEAN;	}
+type	:	INT_DECL		{	_type = MussumVariable.INT;		} 
+		|	STRING_DECL 	{	_type = MussumVariable.TEXT;	}
+		|	DOUBLE_DECL		{	_type = MussumVariable.DOUBLE;	}
+		|	BOOLEAN_DECL	{	_type = MussumVariable.BOOLEAN;	}
+		|	CHAR_DECL		{	_type = MussumVariable.CHAR;	}
 		;
 		
 block	:	{	currThread = new ArrayList<AbstractCommand>();
@@ -182,7 +194,7 @@ decision_cmd 	:	IF
 					OPREL 			{	_exprDecision += _input.LT(-1).getText();		}
 					(
 					ID 				{	verifyAssignment();								} 
-					| NUMBER ) 		{	_exprDecision += _input.LT(-1).getText();		}
+					| INT_VAL ) 	{	_exprDecision += _input.LT(-1).getText();		}
 					R_PAREN 
 					L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
 										commandStack.push(currThread);
@@ -220,7 +232,7 @@ dog	: 	DO
 		OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
 		(
 		ID 				{	verifyAssignment();							} 
-		| NUMBER
+		| INT_VAL
 		) 				{	_exprWhile += _input.LT(-1).getText();		}
 		R_PAREN
 		;
@@ -233,7 +245,7 @@ whileg	: 	WHILE
 			OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
 			(
 			ID 				{	verifyAssignment();							} 
-			| NUMBER
+			| INT_VAL
 			) 				{	_exprWhile += _input.LT(-1).getText();		}
 			R_PAREN 
 			L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
@@ -267,7 +279,7 @@ forg	: 	FOR
 								verifyAssignment();
 							}
 			OPREL 			{	_exprFor += _input.LT(-1).getText();		}
-			(NUMBER
+			(INT_VAL
 			|ID 			{	verifyAssignment();							}
 			)				{	_exprFor += _input.LT(-1).getText();		} 
 			SC 				{	_exprFor += _input.LT(-1).getText();		}
@@ -287,16 +299,22 @@ forg	: 	FOR
 							}
 		;
 		
-attr_cmd	:  	ID 		{ 	verifyID(); 
-							_exprId = _input.LT(-1).getText();
-							_attrVariable = _input.LT(-1).getText();
-							
-						} 
-				ATTR 	{ 	_exprContent = "";	}
-				expr 
-				SC		{	AttrCommand cmd = new AttrCommand(_exprId, _exprContent);	
-							commandStack.peek().add(cmd);
-						}
+attr_cmd	:  	ID 						{ 	verifyID(); 
+											_exprId = _input.LT(-1).getText();
+										}
+				ATTR 					{ 	_exprContent = "";	
+											_varType = ((MussumVariable) symbolTable.get(_exprId)).getType();
+										}
+				( 	expr
+					( BOOLEAN_VAL		{	verifyVarType(MussumVariable.BOOLEAN);		}
+					| CHAR_VAL			{	verifyVarType(MussumVariable.CHAR);			}
+					)					{	_exprContent += _input.LT(-1).getText();	}
+				)
+				SC						{	
+											//assignValue();
+											AttrCommand cmd = new AttrCommand(_exprId, _exprContent);	
+											commandStack.peek().add(cmd);
+										}
 			;
 			
 expr		:  	expr_token ( 
@@ -304,25 +322,50 @@ expr		:  	expr_token (
 				expr_token )*
 			;
 			
-expr_token	: ID 		{	verifyID();
-							_exprContent += _input.LT(-1).getText();
-							_attrValue = _input.LT(-1).getText();
-						}  
-			| NUMBER 	{	_exprContent += _input.LT(-1).getText();
-							_attrValue = _input.LT(-1).getText();
-							assignValue();
-						}
+expr_token	: 	( 
+					ID 					{	verifyID();	
+											int type = ((MussumVariable) symbolTable.get(_input.LT(-1).getText())).getType();
+											verifyVarType(type);
+										}  
+					| INT_VAL			{	verifyVarType(MussumVariable.INT);			}
+					| DOUBLE_VAL		{	verifyVarType(MussumVariable.DOUBLE);		}
+					| STRING_VAL		{	verifyVarType(MussumVariable.TEXT);			}
+				) 						{	_exprContent += _input.LT(-1).getText();	}
 			;
 			
 
-INT	: 'inteiris' ;
-	
-DOUBLE : 'quebradis' ;
+INT_DECL	: 'inteiris' 
+			;
 
-STRING : 'textis' | 'stringuis';
+INT_VAL		: [0-9]+
+			;
+			
+DOUBLE_DECL : 'quebradis' 
+			;
 
-BOOLEAN : 'booleanis';
+DOUBLE_VAL	: [0-9]+ ('.' [0-9]+)?
+			;
+ 
+STRING_DECL : 'textis' | 'stringuis'
+			;
 
+STRING_VAL	: '"' ([a-z]|[A-Z]|[0-9])* '"'
+			;
+
+BOOLEAN_DECL	: 'booleanis'
+				;
+
+BOOLEAN_VAL : 'verdaderis' | 'falsis'
+			;
+
+CHAR_DECL 	: 'caractéris' 
+			;
+
+CHAR_VAL	: 	'"'
+				([a-z]|[A-Z]|[0-9])
+				'"'
+			;
+			
 L_PAREN	: '('
 		;
 	
@@ -371,8 +414,6 @@ OPREL : '>' | '<' | '>=' | '<=' | '==' | '!='
 	 
 ID	: [a-z] ([a-z] | [A-Z] | [0-9])* 
 	;
-	
-NUMBER	: [0-9]+ ('.' [0-9]+)?
-		;
+
 		
 WS	: (' ' | '\t' | '\n' | '\r') -> skip;

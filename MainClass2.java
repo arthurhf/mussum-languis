@@ -6,28 +6,6 @@ public class MainClass{
     double q;
     int b;
     int c;
-    boolean bool;
-    a = 1;
-    b = 2;
-    if ( a>b ) {
-        if ( a<c ) {
-        System.out.println(a);
-    }
-    }
-    else {
-        System.out.println(a);
-    }
-    while ( a>b ) {
-        while ( a<b ) {
-        b = _key.nextInt();
-    }
-    }
-    for ( c = 0;c<3;c++ ) {
-        for ( a = 0;a>5;a-- ) {
-        System.out.println(a);
-    }
-    }
-    while ( a<b ) {
-        System.out.println(a);
-    }
+    boolean varboolean;
+    String text;
   }}

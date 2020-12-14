@@ -27,6 +27,9 @@ public class ReadCommand extends AbstractCommand {
 			
 			case MussumVariable.TEXT:
 				return "_key.nextLine()";
+				
+			case MussumVariable.CHAR:
+				return "_key.nextChar()";
 			
 			default:
 				throw new RuntimeException("tipis não definidis");

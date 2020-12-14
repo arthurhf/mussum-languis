@@ -6,6 +6,7 @@ public class MussumVariable extends MussumSymbol{
 	public static final int TEXT = 1;
 	public static final int DOUBLE = 2;
 	public static final int BOOLEAN = 3;
+	public static final int CHAR = 4;
 	
 	private int type;
 	private String value;
@@ -55,10 +56,35 @@ public class MussumVariable extends MussumSymbol{
 			
 			case BOOLEAN: 
 				return "boolean";
+				
+			case CHAR:
+				return "char";
 			
 			default: 
 				throw new RuntimeException("tipis não definidis");
 		}
+	}
+	
+	public static String getMussumType(int type) {
+		switch (type) {
+		case INT: 
+			return "inteiris";
+			
+		case TEXT:	
+			return "textis";
+		
+		case DOUBLE: 
+			return "quebradis";
+		
+		case BOOLEAN: 
+			return "booleanis";
+			
+		case CHAR:
+			return "caracteris";
+		
+		default: 
+			throw new RuntimeException("tipis não definidis");
+	}
 	}
 	
 
