@@ -44,7 +44,7 @@ programis
     escrevis(c)	
 cacildis;
 ```
-O bloco de declaração de variáveis deve, obrigatoriamente, ser feito antes do bloco com os comandos de Entrada/Saída, Estruturas de Repetição ou atribuição de variável. O exemplo abaixo ocasiona erro de compilação:  
+O bloco de declaração de variáveis pode ser feito antes ou depois do bloco com os comandos de Entrada/Saída, Estruturas de Repetição ou atribuição de variável. 
 ```
 programis  
     inteiris a, b;
@@ -55,7 +55,7 @@ programis
     escrevis(c)	
 cacildis;
 ```
-Não é possível declarar uma variável já atribuindo valor à ela. O seguinte código gera erro de compilação:  
+É possível declarar uma variável já atribuindo valor à ela:  
 ```
 programis  
     inteiris a = 1, b;
