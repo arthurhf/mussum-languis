@@ -1,5 +1,7 @@
 # mussum-languis
 
+<img src="mussum.jpg" alt="Mussum" width="200"/>
+
 A linguagem de programação preferida de todo trapalhão.  
 O resultado é um arquivo Java.
 
