@@ -21,7 +21,6 @@ public class MainClass {
 			parser = new MussumLanguisParser(tokenStream);
 			
 			parser.prog();
-			parser.showCommands();
 			System.out.println("Programis Compiladis!! Cacildis");
 			
 			parser.generateCode();

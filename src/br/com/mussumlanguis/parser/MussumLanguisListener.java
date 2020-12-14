@@ -35,16 +35,6 @@ public interface MussumLanguisListener extends ParseTreeListener {
 	 */
 	void exitProg(MussumLanguisParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MussumLanguisParser#function}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction(MussumLanguisParser.FunctionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MussumLanguisParser#function}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction(MussumLanguisParser.FunctionContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MussumLanguisParser#decl}.
 	 * @param ctx the parse tree
 	 */

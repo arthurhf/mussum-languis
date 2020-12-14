@@ -67,24 +67,24 @@ public class MussumVariable extends MussumSymbol{
 	
 	public static String getMussumType(int type) {
 		switch (type) {
-		case INT: 
-			return "inteiris";
+			case INT: 
+				return "inteiris";
+				
+			case TEXT:	
+				return "textis";
 			
-		case TEXT:	
-			return "textis";
-		
-		case DOUBLE: 
-			return "quebradis";
-		
-		case BOOLEAN: 
-			return "booleanis";
+			case DOUBLE: 
+				return "quebradis";
 			
-		case CHAR:
-			return "caracteris";
-		
-		default: 
-			throw new RuntimeException("tipis não definidis");
-	}
+			case BOOLEAN: 
+				return "booleanis";
+				
+			case CHAR:
+				return "caracteris";
+			
+			default: 
+				throw new RuntimeException("tipis não definidis");
+		}
 	}
 	
 

@@ -52,7 +52,7 @@ grammar MussumLanguis;
 		String id = ((TokenStream) _input).LT(-1).getText();
 		
 		if (!symbolTable.exists(id)) {
-			throw new MussumSemanticException("Symbol " + id + " not declared");
+			throw new MussumSemanticException("Variávis " + id + " não declaradis");
 		}
 	}
 	
@@ -62,10 +62,9 @@ grammar MussumLanguis;
 		symbol = new MussumVariable(_varName, _type, _varValue);
 		
 		if (!symbolTable.exists(_varName)) {
-			System.out.println("Simbolo adicionado: " + symbol); 
 			symbolTable.add(symbol);
 		} else {
-			throw new MussumSemanticException("Symbol " + _varName + " already declared");
+			throw new MussumSemanticException("Variávis " + _varName + " já declaradis");
 		}
 	}
 	
@@ -79,7 +78,7 @@ grammar MussumLanguis;
         		logger.setLevel(Level.WARNING);
   
         		// Call warning method 
-        		logger.warning("Variable " + i + " was never used"); 
+        		logger.warning("Variávis " + i + " nunca usadis"); 
  			}
 		}
  	}
@@ -87,46 +86,38 @@ grammar MussumLanguis;
  	public void verifyAssignment(){
  		_varName = ((TokenStream) _input).LT(-1).getText();
  		if(((MussumVariable) symbolTable.get(_varName)).getValue() == null){
- 				System.out.println("Variable " + _varName + " wasn't assigned");
+ 				throw new MussumSemanticException("Variávis " + _varName + " não inicializadis");
  		}
  	}
  	
  	public void assignValue(){
  		//função pra passar o valor da atribuição pra variável no hashmap
- 		((MussumVariable) symbolTable.get(_attrVariable)).setValue(_attrValue);
- 		System.out.println("Simbolo atualizado: " + symbolTable.get(_attrVariable) ); 
+ 		((MussumVariable) symbolTable.get(_exprId)).setValue(_exprContent);
  	}
 
 	public void verifyVarType(int currType) {
 		if (_varType == -1) {
 			_varType = currType;
 		} else if (_varType != currType) {
-			throw new MussumSemanticException ("Você está misturandis variavis do tipo " + 
+			throw new MussumSemanticException ("Você está misturandis variávis do tipo " + 
 				MussumVariable.getMussumType(currType) + " com " + MussumVariable.getMussumType(_varType));
 		
 		}
 	}
 	
- 	public void showCommands() {
- 		for (AbstractCommand cmd : program.getCommands()) {
- 			System.out.println(cmd);
- 		}
- 	}
  	
  	public void generateCode() {
  		program.generateTarget();
  	}
 }
 
-prog	: function* 'programis' decl block 'cacildis;' {
-												program.setSymbolTable(symbolTable);
-												program.setCommands(commandStack.pop());
-												checkVariableUsage();
-											 }
+prog	:  'programis' decl block 'cacildis'	{
+													program.setSymbolTable(symbolTable);
+													program.setCommands(commandStack.pop());
+													checkVariableUsage();
+											 	}
 		;
 		
-function	:	'funcionis' ID L_CURL decl block R_CURL {System.out.println("Reconheci uma função");}
-			;
 		
 decl	: (var_decl)+
 		;
@@ -147,19 +138,17 @@ block	:	{	currThread = new ArrayList<AbstractCommand>();
 			(cmd)+
 		;
 			
-cmd		: read_cmd 		{	System.out.println("Reconheci um comando de leitura!");		} 
- 		| write_cmd		{	System.out.println("Reconheci um comando de escrita");		}
- 		| decision_cmd	{	System.out.println("Reconheci um comando de decisao");		}
- 		| attr_cmd		{	System.out.println("Reconheci um comando de atribuicao");	}
- 		| forg			{	System.out.println("Reconheci um laço for");				}
- 		| whileg		{	System.out.println("Reconheci um laço while");				}
- 		| dog			{	System.out.println("Reconheci um laço do-while");			}
- 		| comment 		{	System.out.println("Reconheci um comentario");				}
+cmd		: read_cmd
+ 		| write_cmd
+ 		| decision_cmd
+ 		| attr_cmd
+ 		| forg
+ 		| whileg
+ 		| dog
+ 		| comment
 		;
 
-comment		: 	'#COMENTIS' 
-				.
-				'#DESCOMENTIS'
+comment		: 	'#COMENTIS' (.)*? '#DESCOMENTIS'
 			;
 						
 read_cmd	: 'inputis'	L_PAREN 
@@ -305,7 +294,7 @@ attr_cmd	:  	ID 						{ 	verifyID();
 										}
 				expr
 				SC						{	
-											//assignValue();
+											assignValue();
 											AttrCommand cmd = new AttrCommand(_exprId, _exprContent);	
 											commandStack.peek().add(cmd);
 										}
