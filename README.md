@@ -57,7 +57,7 @@ Não é possível declarar uma variável já atribuindo valor à ela. O seguinte
 ```
 programis  
     inteiris a = 1, b;
-	b = 2;
+    b = 2;
     inteiris c;
     c = a+b;
     escrevis(c)	
@@ -82,9 +82,9 @@ Para **Estruturas de Repetição**, temos:
 programis  
     inteiris a, c;
     a = 1;
-	paris(c=0;c<3;c++){
-		escrevis(a);
-	}
+    paris(c=0;c<3;c++){
+        escrevis(a);
+    }
 cacildis;
 ``` 
 ### Laço 'Enquantis'
