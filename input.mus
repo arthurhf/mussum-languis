@@ -2,13 +2,37 @@ programis
 
 	inteiris a, b, c;
 	quebradis q;
-	textis text;
-	booleanis varboolean;
-	
-	varboolean = falsis + a;
-	text = "ahuahua";
+	booleanis bool;	
 	a =1;
+	b=2;
+	#COMENTIS
+	q = 2.2;
+	#DESCOMENTIS
+	
+	se (a > b) {
+		se (a < c) {
+			escrevis(a);
+		}
 
-
+	} 
+	senãozis {
+		escrevis(a);
+	}
+	
+	enquantis (a > b) {
+		enquantis (a < b) {
+			inputis(b);
+		}
+	}
+	
+	paris(c=0;c<3;c++){
+		paris (a=0; a>5; a--) {
+			escrevis(a);
+		}
+	}
+	
+	facis{
+		escrevis(a);
+	}enquantis(c=1) 
 	
 cacildis;

@@ -185,8 +185,8 @@ public class MussumLanguisLexer extends Lexer {
 			if (_varType == -1) {
 				_varType = currType;
 			} else if (_varType != currType) {
-				throw new MussumSemanticException ("Tentativis de declarar variaveis do tipo " + 
-					MussumVariable.getMussumType(currType) + " em " + MussumVariable.getMussumType(_varType));
+				throw new MussumSemanticException ("Você está misturandis variavis do tipo " + 
+					MussumVariable.getMussumType(currType) + " com " + MussumVariable.getMussumType(_varType));
 			
 			}
 		}

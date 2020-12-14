@@ -101,8 +101,8 @@ grammar MussumLanguis;
 		if (_varType == -1) {
 			_varType = currType;
 		} else if (_varType != currType) {
-			throw new MussumSemanticException ("Tentativis de declarar variaveis do tipo " + 
-				MussumVariable.getMussumType(currType) + " em " + MussumVariable.getMussumType(_varType));
+			throw new MussumSemanticException ("Você está misturandis variavis do tipo " + 
+				MussumVariable.getMussumType(currType) + " com " + MussumVariable.getMussumType(_varType));
 		
 		}
 	}
@@ -192,9 +192,7 @@ decision_cmd 	:	IF
 										verifyAssignment();
 									}
 					OPREL 			{	_exprDecision += _input.LT(-1).getText();		}
-					(
-					ID 				{	verifyAssignment();								} 
-					| INT_VAL ) 	{	_exprDecision += _input.LT(-1).getText();		}
+					expr			{	_exprDecision += _exprContent;					}
 					R_PAREN 
 					L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
 										commandStack.push(currThread);
@@ -230,10 +228,7 @@ dog	: 	DO
 								verifyAssignment();
 						}
 		OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
-		(
-		ID 				{	verifyAssignment();							} 
-		| INT_VAL
-		) 				{	_exprWhile += _input.LT(-1).getText();		}
+		expr			{	_exprWhile += _exprContent;					}
 		R_PAREN
 		;
 		
@@ -243,10 +238,7 @@ whileg	: 	WHILE
 								verifyAssignment();
 							}
 			OPREL 			{	_exprWhile += _input.LT(-1).getText();		}
-			(
-			ID 				{	verifyAssignment();							} 
-			| INT_VAL
-			) 				{	_exprWhile += _input.LT(-1).getText();		}
+			expr			{	_exprWhile += _exprContent;					}
 			R_PAREN 
 			L_CURL 			{	currThread = new ArrayList<AbstractCommand>();	
 								commandStack.push(currThread);
@@ -266,7 +258,9 @@ forg	: 	FOR
 								_attrVariable = _input.LT(-1).getText();
 							
 							} 
-			ATTR 			{ 	_exprContent = "";	}
+			ATTR 			{ 	_exprContent = "";	
+								_varType = ((MussumVariable) symbolTable.get(_exprId)).getType();
+							}
 			expr 
 			SC				{	_exprFor = _exprId + " = " + _exprContent + ";";	
 							}	
@@ -278,12 +272,16 @@ forg	: 	FOR
 								_exprFor += _input.LT(-1).getText();
 								verifyAssignment();
 							}
-			OPREL 			{	_exprFor += _input.LT(-1).getText();		}
-			(INT_VAL
-			|ID 			{	verifyAssignment();							}
-			)				{	_exprFor += _input.LT(-1).getText();		} 
+			OPREL 			{	_exprFor += _input.LT(-1).getText();		
+								_exprContent = "";
+							}
+			expr			{	_exprFor += _exprContent;					}
 			SC 				{	_exprFor += _input.LT(-1).getText();		}
-			ID 				{	_exprFor += _input.LT(-1).getText();
+			ID 				{	
+								if (! _exprId.equals(_input.LT(-1).getText())) {
+									throw new MussumSemanticException("Esperavis a variávis " + _exprId + " no paris");
+								}
+								_exprFor += _input.LT(-1).getText();
 								verifyAssignment();
 							}
 			OP_CHANGE		{	_exprFor += _input.LT(-1).getText();		}
@@ -305,11 +303,7 @@ attr_cmd	:  	ID 						{ 	verifyID();
 				ATTR 					{ 	_exprContent = "";	
 											_varType = ((MussumVariable) symbolTable.get(_exprId)).getType();
 										}
-				( 	expr
-					( BOOLEAN_VAL		{	verifyVarType(MussumVariable.BOOLEAN);		}
-					| CHAR_VAL			{	verifyVarType(MussumVariable.CHAR);			}
-					)					{	_exprContent += _input.LT(-1).getText();	}
-				)
+				expr
 				SC						{	
 											//assignValue();
 											AttrCommand cmd = new AttrCommand(_exprId, _exprContent);	
@@ -317,13 +311,22 @@ attr_cmd	:  	ID 						{ 	verifyID();
 										}
 			;
 			
-expr		:  	expr_token ( 
-				OP 				{ _exprContent += _input.LT(-1).getText();	}
-				expr_token )*
+expr		:  	(
+					(	
+						expr_token ( 
+						OP 				{ _exprContent += _input.LT(-1).getText();	}
+						expr_token )*
+					)
+				|
+					(BOOLEAN_VAL		{	verifyVarType(MussumVariable.BOOLEAN);		}
+					| CHAR_VAL			{	verifyVarType(MussumVariable.CHAR);			}
+					)					{	_exprContent += _input.LT(-1).getText();	}
+				)
 			;
 			
 expr_token	: 	( 
 					ID 					{	verifyID();	
+											verifyAssignment();
 											int type = ((MussumVariable) symbolTable.get(_input.LT(-1).getText())).getType();
 											verifyVarType(type);
 										}  
