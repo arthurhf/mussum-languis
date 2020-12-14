@@ -19,7 +19,8 @@ cacildis
 inteiris int_var = 5;
 quebradis double_var = 5.50; 
 textis string_var = "example";  
-booleanis true_bool = verdadeiris, false_bool = falsis; 
+booleanis true_bool = verdadeiris, false_bool = falsis;
+caractéris char_var = "a"; 
 ```
 ## Operações
 Operações aritméticas: Soma (+), Subtração (-), Divisão(/), Multiplicação (*)  
