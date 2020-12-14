@@ -123,9 +123,37 @@ prog	:  'programis' block 'cacildis;'	{
 decl	: (var_decl)+
 		;
 		
-var_decl	: type ID { addSymbol(); } (COMMA ID { addSymbol(); } )* SC
+var_decl	: 	type 
+				ID 				{	addSymbol();	
+									_exprId = _input.LT(-1).getText();
+								} 
+				(	ATTR 		{ 	_exprContent = "";	
+									_varType = ((MussumVariable) symbolTable.get(_exprId)).getType();
+								}
+					expr		{	assignValue();			
+									AttrCommand cmd = new AttrCommand(_exprId, _exprContent);	
+									commandStack.peek().add(cmd);
+								}
+				)?
+				
+				(
+					COMMA 
+					ID 			{ 	addSymbol(); 			
+									_exprId = _input.LT(-1).getText();
+								}
+					(	
+						ATTR 	{ 	_exprContent = "";	
+									_varType = ((MussumVariable) symbolTable.get(_exprId)).getType();
+								}
+						expr	{	assignValue();			
+									AttrCommand cmd = new AttrCommand(_exprId, _exprContent);
+									commandStack.peek().add(cmd);
+								}
+					)?
+				)* SC
 			;
-
+							
+							
 type	:	INT_DECL		{	_type = MussumVariable.INT;		} 
 		|	STRING_DECL 	{	_type = MussumVariable.TEXT;	}
 		|	DOUBLE_DECL		{	_type = MussumVariable.DOUBLE;	}
@@ -136,7 +164,7 @@ type	:	INT_DECL		{	_type = MussumVariable.INT;		}
 block	:	{	currThread = new ArrayList<AbstractCommand>();
 				commandStack.push(currThread);
 			}
-			(cmd)+
+			(cmd|decl)+
 		;
 			
 cmd		: read_cmd
@@ -147,7 +175,6 @@ cmd		: read_cmd
  		| whileg
  		| dog
  		| comment
- 		| decl
 		;
 
 comment		: 	'#COMENTIS' (.)*? '#DESCOMENTIS'
@@ -222,6 +249,7 @@ dog	: 	DO
 							DoWhileCommand cmd = new DoWhileCommand(_exprWhile, commandStack.pop());
 							commandStack.peek().add(cmd);
 						}
+		';'
 		;
 		
 whileg	: 	WHILE 
@@ -256,6 +284,7 @@ forg	: 	FOR
 							}
 			expr 
 			SC				{	_exprFor = _exprId + " = " + _exprContent + ";";	
+								assignValue();
 							}	
 			ID 				{	
 								if (! _exprId.equals(_input.LT(-1).getText())) {

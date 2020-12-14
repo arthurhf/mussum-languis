@@ -1,6 +1,6 @@
 programis
 
-	inteiris a, b, c;
+	inteiris a = 4, b, c = 5;
 	
 	textis text;
 	booleanis bol;
@@ -9,7 +9,10 @@ programis
 
 	a = 5;
 	b = 10;
-
+	
+	paris(c = 0; c<3; c--){
+			escrevis(a);
+		}
 	enquantis (a == 10) {
 		enquantis(b == 50) {
 			escrevis(a);
@@ -18,7 +21,7 @@ programis
 			}
 		}
 	}
-	#COMENTIS
+
 	facis {
 			enquantis(b == 50) {
 			escrevis(a);
@@ -27,7 +30,7 @@ programis
 			}
 		}
 	} enquantis (a == 10);
-	#DESCOMENTIS
+
 	
 	textis ab = "textinho teste";
 
